@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Brian Murithi — CV</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* CV specific quick styles */
+      .cv-container{max-width:900px;margin:28px auto;padding:28px;background:rgba(255,255,255,0.02);border-radius:10px}
+      h1.cv-name{margin:0 0 4px}
+      .meta{color:var(--muted);margin-bottom:18px}
+      .section-cv{margin-top:18px}
+      .cv-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+      .cv-right{background:rgba(255,255,255,0.02);padding:14px;border-radius:8px}
+      .download-actions{display:flex;gap:10px;margin-top:12px}
+      .no-print{display:block}
+      @media print{
+        body{background:#fff;color:#000}
+        a::after{content:''}
+        .no-print{display:none}
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div>
+          <h1 class="brand">DigiWebs</h1>
+          <p class="tagline">Build. Scale. Impact.</p>
+        </div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="cv.html" aria-current="page">CV</a>
+          <a href="index.html#portfolio">Portfolio</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="cv-container">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+          <div>
+            <h1 class="cv-name">Brian Murithi</h1>
+            <div class="meta">Founder, DigiWebs • Web & Records Systems • Nairobi, Kenya</div>
+          </div>
+          <div class="no-print">
+            <div class="download-actions">
+              <button class="btn primary" onclick="window.print()">Download / Print PDF</button>
+              <a class="btn outline" href="mailto:websitesbrian585@gmail.com">Email</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-grid">
+          <div>
+            <section class="section-cv">
+              <h3>Career Objective</h3>
+              <p>A detail-oriented undergraduate pursuing a BSc in Records Management and IT at Kenyatta University, with a passion for digital transformation, data governance, and service excellence. I bring hands-on experience in web development, academic research, and entrepreneurship, and aim to contribute to organizations through innovative digital solutions and strong information management practices.</p>
+            </section>
+
+            <section class="section-cv">
+              <h3>Education</h3>
+              <p><strong>BSc Records Management & Information Technology</strong> — Kenyatta University (2024–Present)</p>
+              <ul>
+                <li>Digital records systems, information governance, data security, database design, web technologies.</li>
+              </ul>
+
+              <p><strong>KCSE</strong> — Meru School (2020–2023) — Mean Grade: B-</p>
+              <p><strong>KCPE</strong> — C.C.M Mwimbi Boarding School (2017–2019) — Mean Score: 390 (A-)</p>
+            </section>
+
+            <section class="section-cv">
+              <h3>Certifications & Training</h3>
+              <ul>
+                <li>Certificate in Basic ICT — Meru Institute of Business Studies (Nov 2024–Apr 2024)</li>
+                <li>Certificate of Appreciation — Meru School Christian Union (2022–2023)</li>
+                <li>Certificate of Participation — Debate Circle Championships (July 2023)</li>
+              </ul>
+            </section>
+
+            <section class="section-cv">
+              <h3>Entrepreneurial Experience</h3>
+              <p><strong>Founder & Developer — DigiWebs</strong></p>
+              <p>Website: <a href="https://digi-webs.rf.gd" target="_blank" rel="noopener">digi-webs.rf.gd</a></p>
+              <p>DigiWebs provides web development, app creation, and records management services to Kenyan businesses — delivering secure, modern digital solutions tailored to client needs.</p>
+            </section>
+
+            <section class="section-cv">
+              <h3>Skills</h3>
+              <ul>
+                <li>Web development (HTML/CSS), WordPress, database design</li>
+                <li>Records management, information governance, data security</li>
+                <li>MS Office Suite, document formatting, client communication</li>
+                <li>Leadership, teamwork, strategic thinking, entrepreneurship</li>
+              </ul>
+            </section>
+
+            <section class="section-cv">
+              <h3>Languages</h3>
+              <ul>
+                <li>English — Fluent</li>
+                <li>Kiswahili — Fluent</li>
+                <li>German — Basic proficiency</li>
+              </ul>
+            </section>
+
+            <section class="section-cv">
+              <h3>Interests</h3>
+              <p>Coding, travel, leadership reading, strategic games, and improving user experiences.</p>
+            </section>
+          </div>
+
+          <aside class="cv-right">
+            <h3>Contact</h3>
+            <p><strong>Phone:</strong> +254 728 390 357</p>
+            <p><strong>Email:</strong> <a href="mailto:websitesbrian585@gmail.com">websitesbrian585@gmail.com</a></p>
+            <p><strong>Website:</strong> <a href="https://digi-webs.rf.gd" target="_blank" rel="noopener">DigiWebs</a></p>
+
+            <h3 style="margin-top:18px">Referee</h3>
+            <p><strong>Fridah Mbogori</strong><br>Finance and Administration Manager, Viridian Company Ltd<br>P O Box 162-00100, Nairobi<br>0720710625</p>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer container">
+      <div class="footer-inner">
+        <p>&copy; <span id="year">2025</span> DigiWebs</p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+/* Minimal responsive styles for the portfolio */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+:root{
+  /* Professional palette (deep navy + teal + gold accents) */
+  --bg: #071428;          /* page background / hero deep navy */
+  --surface: #0b1a2a;     /* primary cards / sections */
+  --card: #0f2633;        /* slightly lighter card */
+  --muted: #9fb3c8;       /* muted text */
+  --accent: #06b6d4;      /* teal accent */
+  --accent-2: #7c3aed;    /* secondary accent */
+  --gold: #f6c85f;        /* gold for stars and highlights */
+  --text: #e6eef6;        /* main text */
+  --radius: 10px;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Layout helper */
+.container{max-width:1100px;margin:0 auto;padding:0 18px}
+
+.site-header{background:transparent;padding:18px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{margin:0;font-size:1.4rem;letter-spacing:0.6px}
+.tagline{margin:4px 0 0;color:var(--muted);font-size:0.9rem}
+.main-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+.main-nav a:hover{color:var(--text)}
+
+.hero{padding:64px 0;text-align:left}
+.hero-inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hero-inner h2{margin:0 0 12px;font-size:1.8rem;line-height:1.2}
+.lead{color:var(--muted);margin-bottom:18px}
+.hero-ctas .btn{margin-right:12px}
+
+/* Profile photo in hero */
+.profile-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.06);margin-right:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6);flex:0 0 140px}
+
+.section{padding:48px 0}
+.alt-bg{background:rgba(255,255,255,0.02)}
+.subtitle{color:var(--muted);margin-top:6px}
+
+.quick-stats{display:flex;gap:24px;margin-top:18px}
+.quick-stats .stat-card{background:var(--surface);padding:14px;border-radius:10px;text-align:center;min-width:140px;border:1px solid rgba(255,255,255,0.02)}
+.quick-stats .stat-card strong{display:block;font-size:1.4rem}
+
+.project .project-meta{color:var(--muted);margin-top:8px;font-size:0.95rem}
+
+.skills-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.skills-list li{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;font-size:0.9rem}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+.review-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:10px;box-shadow:0 8px 24px rgba(2,6,23,0.45)}
+.review-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.review-text{color:var(--muted);margin:0 0 8px}
+.review-meta{font-size:0.85rem;color:var(--muted)}
+.review-form-card{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:10px}
+.rating-stars{display:inline-flex;gap:6px;margin-top:8px}
+.rating-star{font-size:20px;color:var(--muted);cursor:pointer;transition:transform .12s ease, color .12s ease}
+.rating-star:hover{transform:translateY(-4px);color:#f6c85f}
+.rating-star.selected{color:#f6c85f;transform:translateY(-2px)}
+
+@media (max-width:900px){
+  .reviews-grid{grid-template-columns:1fr}
+}
+
+.services-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;list-style:none;padding:0;margin:18px 0 0}
+.services-list li{background:rgba(255,255,255,0.02);padding:18px;border-radius:10px}
+.services-list li{background:var(--surface);padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.project{
+  background:var(--surface);
+  padding:14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow:0 6px 18px rgba(2,6,23,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project:hover {
+  transform: translateY(-5px);
+  box-shadow:0 12px 28px rgba(2,6,23,0.45);
+}
+.project h3{margin:12px 0 6px}
+.project .project-meta{color:var(--muted);margin:0 0 8px}
+.project img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:linear-gradient(135deg, var(--surface), var(--card));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  filter: brightness(0.95) contrast(1.1);
+}
+.project:hover img {
+  transform: scale(1.02);
+  box-shadow:0 8px 24px rgba(2,6,23,0.4);
+}
+
+.values-list{list-style:none;padding-left:0}
+.values-list li{margin:8px 0;color:var(--muted)}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.contact-form label{display:block;margin-bottom:10px;color:var(--muted)}
+.contact-form input,.contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)}
+
+/* Contact card and icon styles */
+.contact-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;display:flex;flex-direction:column;gap:12px}
+.profile-photo-small{width:84px;height:84px;border-radius:50%;object-fit:cover;display:block;padding:0;border:3px solid rgba(255,255,255,0.04);box-shadow:0 6px 18px rgba(2,6,23,0.6);background-size:cover;background-position:center}
+.contact-blurb{color:var(--muted);margin:0;font-size:0.95rem}
+.contact-icons{display:flex;gap:10px;align-items:center;margin-top:6px}
+.icon-link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--accent);text-decoration:none;border:1px solid rgba(255,255,255,0.03);transition:transform .12s ease, box-shadow .12s ease}
+.icon-link svg{width:60%;height:60%;display:block}
+.icon-link:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(7,19,32,0.5)}
+.icon-link.whatsapp{background:linear-gradient(90deg,#25D366,#128C7E);color:#022027}
+
+
+.site-footer{border-top:1px solid rgba(255,255,255,0.03);padding:18px 0;margin-top:36px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center}
+.social a{color:var(--muted);margin-left:12px;text-decoration:none}
+
+.btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#031022;border:none}
+.btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+
+/* Responsive */
+@media (max-width:900px){
+  .services-list{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr 1fr}
+  .header-inner{flex-direction:column;align-items:flex-start;gap:12px}
+}
+@media (max-width:600px){
+  .projects-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .hero-inner h2{font-size:1.25rem}
+  .profile-photo{float:none;margin:0 auto 18px;display:block;width:120px;height:120px}
+  .main-nav{display:none}
+}
+
+/* Small accessibility helpers */
+a:focus{outline:3px solid rgba(6,182,212,0.18);outline-offset:2px}

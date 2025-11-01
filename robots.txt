@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://brianmurithi.github.io/sitemap.xml
