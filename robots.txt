@@ -1,2 +1,6 @@
 User-agent: *
+<<<<<<< HEAD
 Sitemap: https://brianmurithi.github.io/sitemap.xml
+=======
+Sitemap: https://brianmurithi.github.io/sitemap.xml
+>>>>>>> 16c244c (Website: UI polish  animated background, skills columns, WhatsApp CTA)
