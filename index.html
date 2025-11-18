@@ -70,10 +70,11 @@
           <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs">
           <div>
             <h1>Brian Murithi — Freelance Web Developer</h1>
-            <h2>Secure, user-centred web systems for schools and SMEs in Kenya.</h2>
+            <p><a class="btn outline" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit my website</a></p>
+            <h3>Secure, user-centred web systems for schools and SMEs in Kenya.</h3>
             <p class="lead">I build reliable web apps, records systems and small business websites that reduce admin work and help organisations scale. Available for freelance projects, contract work and consultancy.</p>
             <div class="hero-ctas">
-              <a class="btn primary" href="#contact">Hire me</a>
+              <a class="btn primary" href="https://wa.me/254762097075" target="_blank" rel="noopener" aria-label="Message Brian on WhatsApp">Hire me</a>
               <a class="btn outline" href="#portfolio">See portfolio</a>
               <a class="btn" href="cv.html" target="_blank" rel="noopener">Download CV</a>
             </div>
@@ -84,16 +85,31 @@
       <section id="skills" class="section container">
         <h2>Skills</h2>
         <p class="subtitle">Technical skills I use regularly to build stable, maintainable systems.</p>
-        <ul class="skills-list">
-          <li title="HTML5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M3 3h18l-1.6 18L12 21 4.6 21 3 3z" fill="#e44d26"/></svg>HTML5</li>
-          <li title="CSS3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M3 3h18l-1.6 18L12 21 4.6 21 3 3z" fill="#1572B6"/></svg>CSS3</li>
-          <li title="JavaScript"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><rect width="24" height="24" rx="4" fill="#f7df1e"/></svg>JavaScript</li>
-          <li title="Node.js"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><circle cx="12" cy="12" r="10" fill="#68A063"/></svg>Node.js</li>
-          <li title="PHP & Backend"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><rect width="24" height="24" rx="3" fill="#777BB4"/></svg>PHP</li>
-          <li title="MySQL / Databases"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><ellipse cx="12" cy="8" rx="8" ry="3" fill="#00758F"/></svg>MySQL</li>
-          <li title="Git & CI"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M12 2v20" stroke="#F05032" stroke-width="2"/></svg>Git</li>
-          <li title="UI / UX">🎨 UI / UX</li>
-        </ul>
+        <div class="skills-grid">
+          <div class="skills-col">
+            <h3>IT Skills</h3>
+            <ul class="skills-list">
+              <li title="Web Development"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><rect width="24" height="24" rx="3" fill="#4F46E5"/></svg>Web Development (HTML / CSS / JS)</li>
+              <li title="Backend & APIs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><circle cx="12" cy="12" r="10" fill="#10B981"/></svg>Backend & APIs (Node, PHP)</li>
+              <li title="Databases"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><ellipse cx="12" cy="8" rx="8" ry="3" fill="#00758F"/></svg>Databases (MySQL)</li>
+              <li title="DevOps & Containers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M3 3h18v18H3z" fill="#0EA5A4"/></svg>DevOps basics (Docker, CI)</li>
+              <li title="Networking & Security"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M12 2v20" stroke="#F97316" stroke-width="2"/></svg>Networking & Security fundamentals</li>
+              <li title="Records Management">📁 Records Management systems</li>
+            </ul>
+          </div>
+
+          <div class="skills-col">
+            <h3>Computer Skills</h3>
+            <ul class="skills-list">
+              <li title="MS Office">🧾 MS Office (Excel, Word, PowerPoint)</li>
+              <li title="Spreadsheets">📊 Excel (formulas, pivot tables, reporting)</li>
+              <li title="Google Workspace">☁️ Google Workspace (Docs, Sheets, Drive)</li>
+              <li title="Data entry">⌨️ Data entry & documentation</li>
+              <li title="Documentation">📝 SOPs, technical documentation & training</li>
+              <li title="Collaboration">🔗 Version control & collaboration (Git, GitHub)</li>
+            </ul>
+          </div>
+        </div>
       </section>
       
 
@@ -184,15 +200,7 @@
             <div class="proj-rating" aria-hidden="true">★★★★☆</div>
           </article>
 
-          <article class="project">
-            <video width="100%" height="180" controls muted poster="images/project4.png">
-              <source src="images/project5.mp4" type="video/mp4">
-              Your browser does not support video.
-            </video>
-            <h3>Field Data App (Demo)</h3>
-            <p class="project-meta">Short demo of a mobile-friendly field data collection app used in community projects.</p>
-            <div class="proj-rating" aria-hidden="true">★★★★★</div>
-          </article>
+          <!-- Removed video project for a cleaner, more relevant portfolio -->
 
           <article class="project">
             <img src="images/project1.svg" alt="Custom CRM — client management">
@@ -407,7 +415,8 @@
             </div>
           </div>
           <!-- Contact form: replace `yourFormID` with your Formspree form ID (https://formspree.io) -->
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/yourFormID" method="POST">
+          <!-- Contact form: Formspree direct to Gmail. Replace with your Formspree form ID below. -->
+          <form id="contactForm" class="contact-form" action="https://formspree.io/f/xwkzjvqd" method="POST">
             <label>
               Name
               <input type="text" name="name" required>
