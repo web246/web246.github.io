@@ -51,7 +51,7 @@ body{
 .project .project-meta{color:var(--muted);margin-top:8px;font-size:0.95rem}
 
 .skills-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.skills-list li{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;font-size:0.9rem}
+.skills-list li{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;font-size:0.95rem;display:inline-flex;align-items:center;gap:8px}
 
 /* Reviews */
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
@@ -103,6 +103,9 @@ body{
   box-shadow:0 8px 24px rgba(2,6,23,0.4);
 }
 
+/* Project rating visual */
+.proj-rating{margin-top:8px;color:var(--gold);font-weight:700;letter-spacing:1px}
+
 .values-list{list-style:none;padding-left:0}
 .values-list li{margin:8px 0;color:var(--muted)}
 
@@ -125,23 +128,15 @@ body{
 .footer-inner{display:flex;justify-content:space-between;align-items:center}
 .social a{color:var(--muted);margin-left:12px;text-decoration:none}
 
-.btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;cursor:pointer}
-.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#031022;border:none}
-.btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-
-/* Responsive */
 @media (max-width:900px){
-  .services-list{grid-template-columns:1fr}
-  .projects-grid{grid-template-columns:1fr 1fr}
-  .header-inner{flex-direction:column;align-items:flex-start;gap:12px}
+  .projects-grid{grid-template-columns:repeat(2,1fr)}
 }
+
 @media (max-width:600px){
   .projects-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
-  .hero-inner h2{font-size:1.25rem}
-  .profile-photo{float:none;margin:0 auto 18px;display:block;width:120px;height:120px}
-  .main-nav{display:none}
+  .header-inner{flex-direction:column;align-items:flex-start;gap:8px}
 }
 
-/* Small accessibility helpers */
-a:focus{outline:3px solid rgba(6,182,212,0.18);outline-offset:2px}
+.btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;cursor:pointer}
+

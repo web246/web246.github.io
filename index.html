@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brian Murithi — Founder of DigiWebs. Web & app developer building systems that transform organisations and communities.">
-    <meta name="keywords" content="DigiWebs, web development, records management, Kenya, software, digital transformation">
+  <meta name="description" content="Brian Murithi — Web developer and records management specialist (Kenya). I build secure, user-centred web apps and records systems that help schools and SMEs scale.">
+  <meta name="keywords" content="Brian Murithi, Brian, Murithi, web developer, IT professional, Kenya, records management, web development, digital transformation, DigiWebs">
     <meta name="author" content="Brian Murithi">
     <title>Brian Murithi | DigiWebs — Build. Scale. Impact.</title>
     
     <!-- SEO Meta Tags -->
     <meta property="og:title" content="Brian Murithi | DigiWebs — Build. Scale. Impact.">
     <meta property="og:description" content="Web developer and records management specialist building digital systems that transform African organisations.">
-    <meta property="og:image" content="images/digiwebs.svg">
+    <meta property="og:image" content="images/digiwebs.png">
     <meta property="og:url" content="https://brianmurithi.github.io/">
     <meta name="twitter:card" content="summary_large_image">
     
@@ -25,11 +25,25 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Brian Murithi",
-        "url": "https://digi-webs.rf.gd/",
+        "url": "https://web246.github.io/",
         "sameAs": [
           "https://linkedin.com/in/brianmurithi"
         ],
         "jobTitle": "Founder & Web Developer"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "DigiWebs",
+        "url": "https://web246.github.io/",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "KE"
+        },
+        "description": "Web development, records management and digital strategy for schools and SMEs in Kenya.",
+        "telephone": "+254728390357"
       }
     </script>
   </head>
@@ -37,7 +51,7 @@
     <header class="site-header">
       <div class="container header-inner">
         <div>
-          <h1 class="brand">DigiWebs</h1>
+          <div class="brand">DigiWebs</div>
           <p class="tagline">Build. Scale. Impact. — Digital systems that uplift African organisations.</p>
         </div>
         <nav class="main-nav" aria-label="Main navigation">
@@ -53,14 +67,33 @@
     <main>
       <section id="hero" class="hero">
         <div class="container hero-inner">
-          <img class="profile-photo" src="images/me.svg" alt="Brian Murithi — Founder of DigiWebs">
-          <h2>I build digital systems that turn ideas into lasting community impact.</h2>
-          <p class="lead">I’m Brian Murithi — founder of DigiWebs and a Records Management & IT undergraduate at Kenyatta University. I design secure, user-centred web and records platforms that reduce administrative friction, improve data quality and help organisations scale their services.</p>
-          <div class="hero-ctas">
-            <a class="btn primary" href="#portfolio">See my work</a>
-            <a class="btn outline" href="#contact">Let’s collaborate</a>
+          <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs">
+          <div>
+            <h1>Brian Murithi — Freelance Web Developer</h1>
+            <h2>Secure, user-centred web systems for schools and SMEs in Kenya.</h2>
+            <p class="lead">I build reliable web apps, records systems and small business websites that reduce admin work and help organisations scale. Available for freelance projects, contract work and consultancy.</p>
+            <div class="hero-ctas">
+              <a class="btn primary" href="#contact">Hire me</a>
+              <a class="btn outline" href="#portfolio">See portfolio</a>
+              <a class="btn" href="cv.html" target="_blank" rel="noopener">Download CV</a>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section id="skills" class="section container">
+        <h2>Skills</h2>
+        <p class="subtitle">Technical skills I use regularly to build stable, maintainable systems.</p>
+        <ul class="skills-list">
+          <li title="HTML5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M3 3h18l-1.6 18L12 21 4.6 21 3 3z" fill="#e44d26"/></svg>HTML5</li>
+          <li title="CSS3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M3 3h18l-1.6 18L12 21 4.6 21 3 3z" fill="#1572B6"/></svg>CSS3</li>
+          <li title="JavaScript"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><rect width="24" height="24" rx="4" fill="#f7df1e"/></svg>JavaScript</li>
+          <li title="Node.js"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><circle cx="12" cy="12" r="10" fill="#68A063"/></svg>Node.js</li>
+          <li title="PHP & Backend"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><rect width="24" height="24" rx="3" fill="#777BB4"/></svg>PHP</li>
+          <li title="MySQL / Databases"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><ellipse cx="12" cy="8" rx="8" ry="3" fill="#00758F"/></svg>MySQL</li>
+          <li title="Git & CI"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:8px"><path d="M12 2v20" stroke="#F05032" stroke-width="2"/></svg>Git</li>
+          <li title="UI / UX">🎨 UI / UX</li>
+        </ul>
       </section>
       
 
@@ -109,26 +142,79 @@
         <p class="subtitle">Projects that delivered measurable value.</p>
         <div class="projects-grid">
           <article class="project">
-            <img src="images/digiwebs.svg" alt="DigiWebs platform screenshot">
+            <img src="images/digiwebs.png" alt="DigiWebs platform — web development and records management (Kenya)">
             <h3>DigiWebs — Growth & Support Platform</h3>
-            <p class="project-meta">The platform I built to deliver web development, app creation and records management services. Indexed on search engines and actively used by clients.</p>
+            <p class="project-meta">Platform for delivering web apps, records systems and client support. Live and indexed — used by local clients.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★★</div>
             <p><a class="btn outline" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit DigiWebs</a></p>
           </article>
+
           <article class="project">
-            <img src="images/project1.svg" alt="Meru School records system dashboard">
+            <img src="images/diginexus.png" alt="Diginexus — data tools for schools">
+            <h3>Diginexus — Data Tools</h3>
+            <p class="project-meta">Data dashboards and reporting tools that improved decision-making for partner schools.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★☆</div>
+          </article>
+
+          <article class="project">
+            <img src="images/project1.svg" alt="Meru School records system dashboard — records management (Kenya)">
             <h3>School Records System — Meru School</h3>
-            <p class="project-meta">End-to-end student records, attendance and reporting system that reduced admin time by 60% and improved record accuracy.</p>
+            <p class="project-meta">Attendance, records and reporting system — reduced admin time and improved data quality.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★★</div>
           </article>
+
           <article class="project">
-            <img src="images/project2.svg" alt="Community portal screenshot">
+            <img src="images/project2.svg" alt="Community portal — community engagement platform">
             <h3>Community Portal</h3>
-            <p class="project-meta">Community engagement portal connecting students and mentors — focused on measurable matches and improved engagement.</p>
+            <p class="project-meta">Mentor-student matching and community engagement platform with measurable outcomes.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★☆</div>
           </article>
+
           <article class="project">
-            <img src="images/project3.svg" alt="Branding & website screenshot">
-            <h3>Digital Branding & Website</h3>
-            <p class="project-meta">Brand refresh and website that increased enquiries and conversions for a local SME.</p>
+            <img src="images/project3.svg" alt="Branding & website — SME website & branding">
+            <h3>Branding & Website — Local SME</h3>
+            <p class="project-meta">Brand refresh and website that increased customer enquiries and conversions.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★★</div>
           </article>
+
+          <article class="project">
+            <img src="images/project4.png" alt="Logistics dashboard — operations">
+            <h3>Operations Dashboard</h3>
+            <p class="project-meta">Internal dashboard for operations and logistics, improving visibility and response times.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★☆</div>
+          </article>
+
+          <article class="project">
+            <video width="100%" height="180" controls muted poster="images/project4.png">
+              <source src="images/project5.mp4" type="video/mp4">
+              Your browser does not support video.
+            </video>
+            <h3>Field Data App (Demo)</h3>
+            <p class="project-meta">Short demo of a mobile-friendly field data collection app used in community projects.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★★</div>
+          </article>
+
+          <article class="project">
+            <img src="images/project1.svg" alt="Custom CRM — client management">
+            <h3>Custom CRM</h3>
+            <p class="project-meta">Lightweight CRM built for a service provider to manage clients and track engagements.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★☆</div>
+          </article>
+
+          <article class="project">
+            <img src="images/project2.svg" alt="E-learning micro-site">
+            <h3>E-learning Micro-site</h3>
+            <p class="project-meta">Micro-site for delivering short learning modules and assessments for students.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★★</div>
+          </article>
+
+          <article class="project">
+            <img src="images/project3.svg" alt="Small business booking site">
+            <h3>Booking & Scheduling</h3>
+            <p class="project-meta">Booking system with notifications and simple admin for small local businesses.</p>
+            <div class="proj-rating" aria-hidden="true">★★★★☆</div>
+          </article>
+
         </div>
       </section>
 
@@ -194,6 +280,42 @@
             <p class="review-text">We received a high-quality app and ongoing support. Communication could improve slightly, but the end result exceeded expectations.</p>
             <div class="review-meta">App development — 4 stars</div>
           </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <strong>Esther K.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p class="review-text">The DigiWebs platform made reporting simple for our school. Brian was patient, clear and delivered a system that works for teachers.</p>
+            <div class="review-meta">DigiWebs — 5 stars</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <strong>Samuel O.</strong>
+              <div class="stars">★★★★☆</div>
+            </div>
+            <p class="review-text">Great work rebuilding our website and improving speed — enquiries went up after launch.</p>
+            <div class="review-meta">Website — 4 stars</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <strong>Grace N.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p class="review-text">Excellent support and clear documentation. The records system fits our workflows and is easy to maintain.</p>
+            <div class="review-meta">Records system — 5 stars</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <strong>Paul M.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p class="review-text">Fast, professional and results-oriented — recommended for small businesses that need practical solutions.</p>
+            <div class="review-meta">CRM & integrations — 5 stars</div>
+          </div>
         </div>
 
         <div class="review-form-card">
@@ -232,7 +354,7 @@
         <p>Want to build something that matters? I’m available for projects, partnerships and mentorship.</p>
         <div class="contact-grid">
           <div class="contact-card">
-            <img class="profile-photo-small" src="images/me.svg" alt="Brian Murithi">
+            <img class="profile-photo-small" src="images/me.png" alt="Brian Murithi">
             <p class="contact-blurb"><strong>Build with purpose.</strong> I take on projects and partnerships that create measurable impact — schools, SMEs and community platforms welcome. Available for freelance and partnership work; I usually reply within 48 hours. Reach me below.</p>
             <div class="contact-icons" role="list">
               <a class="icon-link" href="tel:+254728390357" aria-label="Call Brian" role="listitem">
@@ -242,28 +364,11 @@
                 </svg>
               </a>
 
-              <a class="icon-link whatsapp" href="https://wa.me/254762097075" target="_blank" rel="noopener" aria-label="WhatsApp Brian" role="listitem">
+              <a class="icon-link whatsapp" href="https://wa.me/254728390357" target="_blank" rel="noopener" aria-label="WhatsApp Brian" role="listitem">
                 <!-- WhatsApp SVG -->
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M21.05 2.93A11.94 11.94 0 0 0 12 0C5.37 0 .01 5.37.01 12a11.97 11.97 0 0 0 1.62 6L0 24l6-1.66A11.97 11.97 0 0 0 12 24c6.63 0 12-5.37 12-12 0-1.9-.42-3.7-1.15-5.37z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M17.6 14.4c-.5-.2-2.9-1.4-3.35-1.6-.45-.2-.75-.3-1.07.2-.33.5-1.3 1.6-1.6 1.9-.3.33-.6.36-1.1.12-.5-.25-2-0.73-3.8-2.3-1.4-1.3-2.3-2.9-2.6-3.4-.27-.5 0-.77.2-1.01.2-.25.5-.6.75-.9.25-.3.33-.5.5-.83.17-.33.08-.62-.03-.9-.12-.27-1.07-2.6-1.47-3.57-.4-.96-.8-.83-1.07-.85-.27-.02-.58-.03-.89-.03-.3 0-.78.1-1.18.5-.4.4-1.18 1.15-1.18 2.8s1.2 3.25 1.37 3.47c.17.22 2.35 3.6 5.7 4.9 3.4 1.3 3.4.86 4.03.8.63-.06 2.05-.84 2.34-1.65.3-.8.3-1.48.2-1.62-.1-.12-.45-.2-.95-.4z" fill="currentColor"/>
-                </svg>
-              </a>
-
-              <a class="icon-link" href="https://x.com/yourhandle" target="_blank" rel="noopener" aria-label="X (Twitter) — placeholder" role="listitem">
-                <!-- X SVG (simple cross) -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M6 6l12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-
-              <a class="icon-link" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" aria-label="Instagram — placeholder" role="listitem">
-                <!-- Instagram SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="5" ry="5" stroke="currentColor" stroke-width="1.4"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
 
@@ -301,20 +406,23 @@
               </a>
             </div>
           </div>
-          <form id="contactForm" class="contact-form" action="#" onsubmit="alert('Thanks — I will get back to you!'); return false;">
+          <!-- Contact form: replace `yourFormID` with your Formspree form ID (https://formspree.io) -->
+          <form id="contactForm" class="contact-form" action="https://formspree.io/f/yourFormID" method="POST">
             <label>
               Name
               <input type="text" name="name" required>
             </label>
             <label>
               Email
-              <input type="email" name="email" required>
+              <input type="email" name="_replyto" required>
             </label>
             <label>
               Message
               <textarea name="message" rows="4" required></textarea>
             </label>
+            <input type="hidden" name="_subject" value="New contact from portfolio site">
             <button class="btn primary" type="submit">Send message</button>
+            <div id="contactStatus" role="status" aria-live="polite" style="margin-top:8px;color:var(--muted)"></div>
           </form>
         </div>
       </section>
@@ -412,6 +520,29 @@
           status.textContent='Thanks — your review was added.';
           setTimeout(()=> status.textContent='',4000);
         });
+
+        // Contact form (Formspree) — client-side submit with feedback
+        (function(){
+          const cform = document.getElementById('contactForm');
+          const cstatus = document.getElementById('contactStatus');
+          if(!cform) return;
+          cform.addEventListener('submit', function(ev){
+            ev.preventDefault();
+            cstatus.textContent = 'Sending message…';
+            const fd = new FormData(cform);
+            // send to Formspree (replace action with your form endpoint)
+            fetch(cform.action, {method:'POST', body: fd, headers:{'Accept':'application/json'}})
+              .then(r=> r.json ? r.json() : Promise.resolve(r))
+              .then(res => {
+                cstatus.textContent = 'Thanks — your message has been sent.';
+                cform.reset();
+                setTimeout(()=> cstatus.textContent = '', 5000);
+              }).catch(err => {
+                cstatus.textContent = 'Sorry — there was a problem sending your message.';
+                console.error(err);
+              });
+          });
+        })();
       })();
     </script>
   </body>
