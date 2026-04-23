@@ -1,232 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brian Murithi — Web developer, app developer, and records management specialist (Kenya). I build secure, user-centred web and mobile apps, business and records systems that help schools, SMEs, and organisations scale.">
-    <meta name="keywords" content="Brian Murithi, Brian, Murithi, web developer, app developer, IT professional, Kenya, records management, web development, digital transformation, DigiWebs">
-    <meta name="author" content="Brian Murithi">
-    <title>Brian Murithi | DigiWebs — Build. Scale. Impact.</title>
-    <!-- SEO Meta Tags -->
-    <meta property="og:title" content="Brian Murithi | DigiWebs — Build. Scale. Impact.">
-    <meta property="og:description" content="Web & app developer and records management specialist building digital systems that transform African organisations.">
-    <meta property="og:image" content="images/digiwebs.png">
-    <meta property="og:url" content="https://brianmurithi.github.io/">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- Indexing -->
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://brianmurithi.github.io/">
-    <link rel="stylesheet" href="style.css">
-    <style>
-      /* Fade-in and hover animations */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s, transform 0.8s;
-      }
-      .visible {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-      .section, .project, .achievement-card {
-        transition: box-shadow 0.3s, transform 0.3s;
-      }
-      .project:hover, .achievement-card:hover {
-        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-        transform: translateY(-6px) scale(1.03);
-      }
-      .achievements-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        margin-top: 1.5rem;
-      }
-      .achievement-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px #0001;
-        padding: 1.5rem;
-        flex: 1 1 220px;
-        min-width: 220px;
-        max-width: 320px;
-        text-align: center;
-      }
-      .achievement-card img {
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 1px 8px #0002;
-      }
-      /* Optional: fade-in for all sections */
-      .section, .project, .achievement-card { opacity: 0; }
-    </style>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Brian Murithi",
-        "url": "https://web246.github.io/",
-        "sameAs": [
-          "https://linkedin.com/in/brianmurithi"
-        ],
-        "jobTitle": "Founder & Web/App Developer"
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "DigiWebs",
-        "url": "https://web246.github.io/",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "KE"
-        },
-        "description": "Web & app development, records management, business management and digital strategy for schools, SMEs and organisations in Kenya.",
-        "telephone": "+254728390357"
-      }
-    </script>
-  </head>
-  <body>
-    <header class="site-header fade-in">
-      <div class="container header-inner">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Brian Murithi — Web developer, app developer, and records management specialist (Kenya). I build secure, user-centred web and mobile apps, business and records systems that help schools, SMEs, and organisations scale.">
+  <meta name="keywords" content="Brian Murithi, Brian, Murithi, web developer, app developer, IT professional, Kenya, records management, web development, digital transformation, DigiWebs">
+  <meta name="author" content="Brian Murithi">
+  <title>Brian Murithi | DigiWebs — Build. Scale. Impact.</title>
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://brianmurithi.github.io/">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f8fafc; color: #222; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .site-header, .site-footer { background: #fff; box-shadow: 0 2px 8px #0001; }
+    .site-header { padding: 1.5rem 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-size: 2rem; font-weight: bold; color: #4F46E5; }
+    nav a { margin: 0 1rem; color: #222; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #4F46E5; }
+    .hero { display: flex; align-items: center; gap: 2rem; padding: 3rem 0 2rem 0; }
+    .profile-photo { width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 2px 12px #0002; }
+    .hero-inner { display: flex; align-items: center; gap: 2rem; }
+    .subtitle { color: #64748b; margin-bottom: 1.5rem; }
+    .section { margin: 3rem 0; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #0001; padding: 2rem 0; }
+    .skills-grid, .projects-grid, .achievements-grid, .whyme-grid, .reviews-grid, .contact-grid { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .skills-col, .project, .achievement-card, .whyme-card, .review-card, .contact-card { flex: 1 1 220px; min-width: 220px; max-width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #0001; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .skills-list, .values-list { list-style: none; padding: 0; margin: 0; }
+    .skills-list li, .values-list li { margin-bottom: 0.5rem; }
+    .btn { display: inline-block; padding: 0.5rem 1.5rem; border-radius: 6px; border: none; background: #4F46E5; color: #fff; font-weight: bold; text-decoration: none; transition: background 0.2s; }
+    .btn.outline { background: #fff; color: #4F46E5; border: 2px solid #4F46E5; }
+    .btn:hover { background: #6366F1; color: #fff; }
+    .alt-bg { background: #f1f5f9; }
+    .site-footer { padding: 2rem 0; text-align: center; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .social a { margin: 0 0.5rem; color: #4F46E5; text-decoration: none; }
+    .social a:hover { text-decoration: underline; }
+    @media (max-width: 800px) {
+      .hero-inner, .skills-grid, .projects-grid, .achievements-grid, .whyme-grid, .reviews-grid, .contact-grid { flex-direction: column; align-items: stretch; }
+      .header-inner { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">DigiWebs</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+        <a href="cv.html" target="_blank" rel="noopener">CV</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs">
         <div>
-          <div class="brand">DigiWebs</div>
-          <p class="tagline">Build. Scale. Impact. — Digital systems that uplift African organisations.</p>
-        </div>
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#achievements">Achievements</a>
-          <a href="#contact">Contact</a>
-          <a href="cv.html" target="_blank" rel="noopener">CV</a>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-      <section id="hero" class="hero fade-in">
-        <div class="container hero-inner">
-          <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs">
-          <div>
-            <h1>Brian Murithi — Freelance Web & App Developer</h1>
-            <p><a class="btn outline" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit my website</a></p>
-            <h3>Secure, user-centred web & mobile systems for schools, SMEs and organisations in Kenya.</h3>
-            <p class="lead">I build reliable web and mobile apps, business management systems, and digital solutions that reduce admin work, improve efficiency, and help organisations scale. Available for freelance projects, contract work, and consultancy.</p>
-            <div class="hero-ctas">
-              <a class="btn primary" href="https://wa.me/254762097075" target="_blank" rel="noopener" aria-label="Message Brian on WhatsApp">Hire me</a>
-              <a class="btn outline" href="#portfolio">See portfolio</a>
-              <a class="btn" href="cv.html" target="_blank" rel="noopener">Download CV</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" class="section container fade-in">
-        <h2>Skills</h2>
-        <p class="subtitle">Technical skills I use regularly to build stable, maintainable systems.</p>
-        <!-- ...existing skills content... -->
-      </section>
-
-      <section id="about" class="section container fade-in">
-        <h2>About Me</h2>
-        <p>
-          I’m Brian Murithi, a detail-oriented web and app developer, digital strategist, and records management specialist based in Kenya. My passion is building practical, secure, and scalable digital solutions for schools, SMEs, NGOs, and community organisations across Africa. I combine technical expertise, business acumen, and a human-centred approach to deliver systems that solve real-world problems and drive growth.
-        </p>
-        <p>
-          In 2026, I built the official website for <strong>AGART-K</strong>, a leader in livestock genetics and advanced reproductive technologies in Kenya, helping empower farmers and breeders with digital solutions.
-        </p>
-        <p>
-          With a background in IT, business management, and digital transformation, I have delivered solutions that empower teams, streamline operations, and unlock new opportunities. I believe in making technology accessible, sustainable, and impactful for all — whether you’re a school, a business, a non-profit, or a growing enterprise. Let’s build something that lasts and creates value for your organisation and community.
-        </p>
-        <!-- ...existing stats... -->
-      </section>
-
-      <section id="services" class="section alt-bg fade-in">
-        <div class="container">
-          <h2>Services</h2>
-          <p class="subtitle">From idea to impact — end-to-end digital services tailored for organisations in Africa.</p>
-          <!-- ...existing services content... -->
-        </div>
-      </section>
-
-      <section id="portfolio" class="section container fade-in">
-        <h2>Selected Work</h2>
-        <p class="subtitle">A showcase of digital products, platforms, and systems I have built for business, education, and impact.</p>
-        <div class="projects-grid">
-          <!-- AGART-K Website -->
-          <article class="project fade-in">
-            <img src="images/agartk.png" alt="AGART-K website">
-            <h3>AGART-K — Livestock Genetics Platform</h3>
-            <p class="project-meta">
-              I built the official website for AGART-K, your trusted partner in livestock genetic improvement and advanced reproductive technologies. AGART-K empowers farmers and breeders across Kenya with world-class solutions for animal production, breeding, and sustainable agriculture.
-            </p>
-            <a class="btn outline" style="background:#fbbf24;color:#1e293b;font-weight:bold;box-shadow:0 2px 16px #fbbf2455;" href="https://agart-k.gt.tc/" target="_blank" rel="noopener">Visit AGART-K</a>
-          </article>
-          <!-- ...existing projects (DigiWebs, Algorithm Forge, etc.)... -->
-        </div>
-      </section>
-
-      <section id="achievements" class="section container fade-in">
-        <h2>Recent Achievements</h2>
-        <div class="achievements-grid">
-          <div class="achievement-card fade-in">
-            <img src="images/ibm-badge.png" alt="IBM Cybersecurity Fundamentals Badge" style="width:120px;">
-            <h3>IBM Cybersecurity Fundamentals</h3>
-            <p>Earned April 2026 — Recognized by IBM SkillsBuild for foundational knowledge in cybersecurity best practices.</p>
-          </div>
-          <div class="achievement-card fade-in">
-            <img src="images/ibm-certificate.png" alt="IBM Certificate" style="width:120px;">
-            <h3>IBM Certificate</h3>
-            <p>Certified for completing the Cybersecurity Fundamentals course by IBM SkillsBuild.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ...rest of your sections (values, whyme, reviews, contact, etc.)... -->
-
-    </main>
-
-    <footer class="site-footer fade-in">
-      <div class="container footer-inner">
-        <p>&copy; <span id="year">2026</span> DigiWebs. Built for impact. Contact: <a href="mailto:websitesbrian585@gmail.com">websitesbrian585@gmail.com</a> • +254 728 390 357</p>
-        <div class="social">
-          <a href="https://linkedin.com/in/brianmurithi" aria-label="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="mailto:brian@digiwebs.co.ke" aria-label="Email">Email</a>
+          <h1>Brian Murithi</h1>
+          <h3>Secure, user-centred web & mobile systems for schools, SMEs and organisations in Africa.</h3>
+          <p class="subtitle">Web developer, app developer, and records management specialist. I build digital solutions that help you scale and create impact.</p>
         </div>
       </div>
-    </footer>
-
-    <script>
-      // Fade-in animation on scroll
-      document.addEventListener('DOMContentLoaded', function() {
-        const fadeEls = document.querySelectorAll('.fade-in, .section, .project, .achievement-card');
-        function reveal() {
-          fadeEls.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 60) {
-              el.classList.add('visible');
-            }
-          });
-        }
-        window.addEventListener('scroll', reveal);
-        reveal();
-      });
-
-      // Small enhancements: current year and smooth scroll for anchor links
+    </section>
+    <section id="about" class="section container">
+      <h2>About Me</h2>
+      <p>I’m Brian Murithi, a detail-oriented web and app developer, digital strategist, and records management specialist based in Kenya. My passion is building practical, secure, and scalable digital solutions for schools, SMEs, NGOs, and community organisations across Africa. I combine technical expertise, business acumen, and a human-centred approach to deliver systems that solve real-world problems and drive growth.</p>
+      <p>With a background in IT, business management, and digital transformation, I have delivered solutions that empower teams, streamline operations, and unlock new opportunities. I believe in making technology accessible, sustainable, and impactful for all — whether you’re a school, a business, a non-profit, or a growing enterprise. Let’s build something that lasts and creates value for your organisation and community.</p>
+      <div class="quick-stats" style="display:flex;gap:2rem;margin-top:1.5rem;">
+        <div class="stat-card"><strong>100+</strong><span>People empowered</span></div>
+        <div class="stat-card"><strong>10+</strong><span>Systems delivered</span></div>
+        <div class="stat-card"><strong>60%</strong><span>Avg admin time reduction</span></div>
+      </div>
+    </section>
+    <section id="skills" class="section container">
+      <h2>Skills</h2>
+      <p class="subtitle">Technical skills I use regularly to build stable, maintainable systems.</p>
+      <div class="skills-grid">
+        <div class="skills-col">
+          <h3>IT Skills</h3>
+          <ul class="skills-list">
+            <li>Web Development (HTML / CSS / JS)</li>
+            <li>App Development (Android, PWA, cross-platform)</li>
+            <li>Backend & APIs (Node, PHP)</li>
+            <li>Databases (MySQL)</li>
+            <li>DevOps basics (Docker, CI)</li>
+            <li>Networking & Security fundamentals</li>
+            <li>Records Management systems</li>
+            <li>Cloud Solutions (deployment, hosting, SaaS)</li>
+            <li>Automation & Workflow tools</li>
+            <li>AI Integration (chatbots, smart features)</li>
+          </ul>
+        </div>
+        <div class="skills-col">
+          <h3>Computer Skills</h3>
+          <ul class="skills-list">
+            <li>MS Office (Excel, Word, PowerPoint)</li>
+            <li>Excel (formulas, pivot tables, reporting)</li>
+            <li>Google Workspace (Docs, Sheets, Drive)</li>
+            <li>Data entry & documentation</li>
+            <li>SOPs, technical documentation & training</li>
+            <li>Version control & collaboration (Git, GitHub)</li>
+            <li>Presentation & pitch deck design</li>
+            <li>Digital literacy & troubleshooting</li>
+            <li>Internet research & information sourcing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="services" class="section alt-bg container">
+      <h2>Services</h2>
+      <p class="subtitle">From idea to impact — end-to-end digital services tailored for organisations in Africa.</p>
+      <ul class="skills-list">
+        <li><strong>Web & App Development:</strong> Custom responsive web and mobile applications, dashboards, and portals focused on usability, performance, and security.</li>
+        <li><strong>Records Management Systems:</strong> Secure, searchable student, office, and business records systems with compliance-minded data practices.</li>
+        <li><strong>Business Management Solutions:</strong> CRMs, workflow automation, and tools to help you run and grow your organisation efficiently.</li>
+        <li><strong>Digital Strategy & Branding:</strong> Digital roadmaps, branding, and marketing that increase reach, engagement, and impact.</li>
+        <li><strong>IT Consulting & Training:</strong> Consultancy, training, and support to help your team adopt, manage, and benefit from digital tools and best practices.</li>
+        <li><strong>Cloud & Automation:</strong> Cloud deployment, SaaS integration, and automation solutions to modernise your operations and save time.</li>
+      </ul>
+    </section>
+    <section id="portfolio" class="section container">
+      <h2>Selected Work</h2>
+      <p class="subtitle">A showcase of digital products, platforms, and systems I have built for business, education, and impact.</p>
+      <div class="projects-grid">
+        <div class="project">
+          <img src="images/digiwebs.png" alt="DigiWebs business website" style="width:100%;border-radius:8px;">
+          <h3>DigiWebs — Business Website</h3>
+          <p>A modern business website and digital solutions platform for African SMEs, schools, and organisations. Features resources, support, and a client portal to help businesses grow and thrive in the digital era.</p>
+          <a class="btn outline" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit DigiWebs</a>
+        </div>
+        <div class="project">
+          <img src="images/algorithmforge.png" alt="Algorithm Forge app" style="width:100%;border-radius:8px;">
+          <h3>Algorithm Forge</h3>
+          <p>A powerful app for developers and non-developers to generate algorithms, chat with peers, access a marketplace, and earn from their creations. Designed for collaboration, learning, and monetization in the tech community.</p>
+          <a class="btn outline" href="https://algorithmforge.base44.app/" target="_blank" rel="noopener">Visit Algorithm Forge</a>
+        </div>
+        <div class="project">
+          <img src="images/digi-learning.png" alt="Digi-Learning platform" style="width:100%;border-radius:8px;">
+          <h3>Digi-Learning — Free Computer Skills</h3>
+          <p>A free learning platform where anyone can learn computer skills, take interactive lessons, and earn certificates. Built to empower youth and adults with digital literacy for the modern world.</p>
+          <a class="btn outline" href="https://digi-learning.base44.app/" target="_blank" rel="noopener">Visit Digi-Learning</a>
+        </div>
+        <div class="project">
+          <img src="images/digicreate.png" alt="DigiCreate creative app" style="width:100%;border-radius:8px;">
+          <h3>DigiCreate — Creative Suite</h3>
+          <p>A creative tool where users can bring their imagination to life: generate images, edit photos, create music, and more. Designed for creators, students, and professionals to unleash creativity with AI-powered tools.</p>
+          <a class="btn outline" href="https://digi-create.base44.app/" target="_blank" rel="noopener">Visit DigiCreate</a>
+        </div>
+        <div class="project">
+          <img src="images/agartk.png" alt="AGART-K website" style="width:100%;border-radius:8px;">
+          <h3>AGART-K — Livestock Genetics Platform</h3>
+          <p>I built the official website for AGART-K, your trusted partner in livestock genetic improvement and advanced reproductive technologies. AGART-K empowers farmers and breeders across Kenya with world-class solutions for animal production, breeding, and sustainable agriculture.</p>
+          <a class="btn outline" style="background:#fbbf24;color:#1e293b;font-weight:bold;box-shadow:0 2px 16px #fbbf2455;" href="https://agart-k.gt.tc/" target="_blank" rel="noopener">Visit AGART-K</a>
+        </div>
+      </div>
+    </section>
+    <section id="achievements" class="section container">
+      <h2>Recent Achievements</h2>
+      <div class="achievement-card" style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:#f5f7fa;border:1.5px solid #e0e7ef;box-shadow:0 2px 12px #0001;padding:1.5rem 2rem 1.5rem 1.5rem;max-width:600px;margin-bottom:2rem;">
+        <img src="https://images.credly.com/size/340x340/images/50b96632-6cbb-40b7-ac0e-b83f49ff7f94/image.png" alt="IBM Cybersecurity Fundamentals Badge" style="width:110px;min-width:90px;border-radius:12px;box-shadow:0 2px 12px #4F46E522;">
+        <div style="flex:1;min-width:220px;">
+          <h3 style="margin-top:0;margin-bottom:0.5rem;color:#1e293b;">Cybersecurity Fundamentals</h3>
+          <p style="margin:0 0 0.5rem 0;font-size:1rem;"><strong>Issued by:</strong> IBM SkillsBuild<br>
+          <strong>Date:</strong> April 19, 2026</p>
+          <p style="margin:0 0 1rem 0;font-size:0.98rem;color:#334155;">
+            This credential earner demonstrates a foundational understanding of cybersecurity concepts, objectives, and practices. Includes threat groups, types of attacks, social engineering, security strategies, cryptography, and more.
+          </p>
+          <a class="btn" style="background:#1e293b;color:#fff;border:none;font-weight:bold;padding:0.6rem 1.7rem;font-size:1rem;box-shadow:0 2px 8px #0001;" href="https://www.credly.com/badges/234bad61-88a8-4893-a79e-bdf723e7a18c" target="_blank" rel="noopener">Verify Badge</a>
+        </div>
+      </div>
+    </section>
+    <section id="values" class="section container alt-bg">
+      <h2>Mission, Vision & Values</h2>
+      <p><strong>Mission:</strong> Build digital systems that create long-term opportunity and equity across communities in Africa.</p>
+      <p><strong>Vision:</strong> To be a trusted partner in Africa’s digital transformation, empowering organisations to thrive through technology that is accessible, secure, and sustainable.</p>
+      <ul class="values-list">
+        <li><strong>Impact-driven</strong> — measurable outcomes over buzzwords.</li>
+        <li><strong>Inclusive</strong> — accessible by design, for all users.</li>
+        <li><strong>Sustainable</strong> — built to last and easy to maintain.</li>
+        <li><strong>Integrity</strong> — honest advice and transparent processes.</li>
+        <li><strong>Collaboration</strong> — working closely with clients for the best results.</li>
+        <li><strong>Continuous Learning</strong> — always improving, always adapting.</li>
+      </ul>
+    </section>
+    <section id="whyme" class="section container">
+      <h2>Why Choose Me?</h2>
+      <div class="whyme-grid">
+        <div class="whyme-card">
+          <h3>Proven Results</h3>
+          <p>Delivered 10+ systems that improved efficiency, reduced admin time, and empowered users across sectors.</p>
+        </div>
+        <div class="whyme-card">
+          <h3>Full-Stack Expertise</h3>
+          <p>Skilled in web, app, backend, cloud, and automation — your one-stop partner for digital transformation.</p>
+        </div>
+        <div class="whyme-card">
+          <h3>Client-Focused</h3>
+          <p>I listen, advise, and build with your goals in mind. My solutions are practical, sustainable, and tailored to your needs.</p>
+        </div>
+        <div class="whyme-card">
+          <h3>Secure & Reliable</h3>
+          <p>Security and reliability are built into every project, ensuring your data and operations are protected.</p>
+        </div>
+        <div class="whyme-card">
+          <h3>Affordable & Transparent</h3>
+          <p>Clear pricing, honest advice, and no hidden costs. Get value for your investment.</p>
+        </div>
+      </div>
+    </section>
+    <section id="reviews" class="section container alt-bg">
+      <h2>Client Reviews</h2>
+      <p class="subtitle">Real feedback from clients — honest, specific and outcome-focused.</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-head"><strong>James Kinoti</strong> <span style="color:#fbbf24;">★★★★☆</span></div>
+          <p>Brian delivered a robust mobile app for our field operations. The app made data collection effortless and reduced manual errors significantly. He was responsive, practical and delivered on time — highly recommend for any SME looking for a dependable developer.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><strong>Aisha Mwende</strong> <span style="color:#fbbf24;">★★★★★</span></div>
+          <p>The records management system Brian built transformed our school admin. Searching records is now instant and secure — we saved hours each week.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><strong>Peter Ouma</strong> <span style="color:#fbbf24;">★★★★★</span></div>
+          <p>Brian redesigned our website and improved conversion. The new site is faster, clearer and easier to manage.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><strong>Grace Njeri</strong> <span style="color:#fbbf24;">★★★★★</span></div>
+          <p>Brian provided practical business advice that helped our SME scale operations. His solutions are realistic and easy to implement.</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="section container alt-bg">
+      <h2>Contact</h2>
+      <p>Want to build something that matters? I’m available for projects, partnerships and mentorship.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <img class="profile-photo" src="images/me.png" alt="Brian Murithi" style="width:80px;height:80px;">
+          <p><strong>Build with purpose.</strong> I take on projects and partnerships that create measurable impact — schools, SMEs, NGOs, and community platforms welcome. Available for freelance and partnership work; I usually reply within 48 hours. Reach me below.</p>
+          <div class="social" role="list">
+            <a class="icon-link" href="tel:+254728390357" aria-label="Call Brian" role="listitem">Phone</a>
+            <a class="icon-link" href="https://wa.me/254728390357" target="_blank" rel="noopener" aria-label="WhatsApp Brian" role="listitem">WhatsApp</a>
+            <a class="icon-link" href="https://linkedin.com/in/brianmurithi" target="_blank" rel="noopener" aria-label="LinkedIn" role="listitem">LinkedIn</a>
+            <a class="icon-link" href="https://facebook.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Facebook" role="listitem">Facebook</a>
+            <a class="icon-link" href="https://twitter.com/Gen3785" target="_blank" rel="noopener" aria-label="Twitter" role="listitem">Twitter/X</a>
+            <a class="icon-link" href="https://instagram.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Instagram" role="listitem">Instagram</a>
+            <a class="icon-link" href="mailto:websitesbrian585@gmail.com" aria-label="Email" role="listitem">Email</a>
+          </div>
+        </div>
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/xwkzjvqd" method="POST" style="flex:1 1 320px;max-width:400px;">
+          <label>Name<input type="text" name="name" required></label>
+          <label>Email<input type="email" name="_replyto" required></label>
+          <label>Message<textarea name="message" rows="4" required></textarea></label>
+          <input type="hidden" name="_subject" value="New contact from portfolio site">
+          <button class="btn primary" type="submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year">2026</span> DigiWebs. Built for impact. Contact: <a href="mailto:websitesbrian585@gmail.com">websitesbrian585@gmail.com</a> • +254 728 390 357</p>
+      <div class="social">
+        <a href="https://linkedin.com/in/brianmurithi" aria-label="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:brian@digiwebs.co.ke" aria-label="Email">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Set current year
+    document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('year').textContent = new Date().getFullYear();
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function (e) {
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      });
-      // ...existing reviews and contact form JS...
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
 
 
