@@ -9,13 +9,668 @@
   <title>Brian Murithi | DigiWebs — Build. Scale. Impact.</title>
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://brianmurithi.github.io/">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS
+    ============================================= */
+    :root {
+      --ink: #0a0f1e;
+      --ink-2: #1c2540;
+      --surface: #f8f9fc;
+      --surface-2: #eef1f8;
+      --accent: #2563eb;
+      --accent-2: #0ea5e9;
+      --gold: #f59e0b;
+      --green: #10b981;
+      --white: #ffffff;
+      --text: #334155;
+      --muted: #64748b;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --shadow-md: 0 4px 24px rgba(37,99,235,0.10);
+      --shadow-lg: 0 8px 48px rgba(10,15,30,0.14);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--surface);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
+    .reveal-right.visible { opacity: 1; transform: none; }
+
+    /* =============================================
+       CURSOR GLOW
+    ============================================= */
+    #cursor-glow {
+      position: fixed;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: left 0.1s, top 0.1s;
+    }
+
+    /* =============================================
+       HEADER / NAV
+    ============================================= */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(248,249,252,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(37,99,235,0.07);
+      transition: box-shadow var(--transition), background var(--transition);
+    }
+    .site-header.scrolled { box-shadow: 0 2px 24px rgba(10,15,30,0.10); }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    nav { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+    nav a {
+      font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+      color: var(--ink-2); padding: 0.4rem 0.8rem; border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: 4px; left: 50%; right: 50%;
+      height: 2px; background: var(--accent); border-radius: 2px;
+      transition: left var(--transition), right var(--transition);
+    }
+    nav a:hover { color: var(--accent); background: rgba(37,99,235,0.06); }
+    nav a:hover::after { left: 20%; right: 20%; }
+    nav a.nav-cta {
+      background: var(--accent); color: var(--white); border-radius: 8px;
+      padding: 0.45rem 1rem; font-weight: 600;
+    }
+    nav a.nav-cta:hover { background: var(--ink); }
+    nav a.nav-cta::after { display: none; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0a0f1e 0%, #1c2540 60%, #0f2050 100%);
+      position: relative; overflow: hidden;
+      padding: 7rem 0 4rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(37,99,235,0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(14,165,233,0.12) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(245,158,11,0.08) 0%, transparent 35%);
+    }
+    /* Animated grid */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove { 0%{background-position:0 0;} 100%{background-position:60px 60px;} }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: auto 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-photo-wrap {
+      position: relative; flex-shrink: 0;
+    }
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute; inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--gold), var(--accent-2));
+      animation: spinGradient 4s linear infinite;
+    }
+    @keyframes spinGradient { to { transform: rotate(360deg); } }
+    .profile-photo {
+      width: 180px; height: 180px;
+      border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--ink);
+      position: relative; z-index: 1;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute; bottom: -8px; right: -8px; z-index: 2;
+      background: var(--green); color: #fff;
+      font-size: 0.7rem; font-weight: 700; font-family: var(--font-display);
+      padding: 0.3rem 0.7rem; border-radius: 20px;
+      display: flex; align-items: center; gap: 0.3rem;
+      box-shadow: 0 2px 12px rgba(16,185,129,0.4);
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+    .hero-badge::before { content:''; width:6px; height:6px; background:#fff; border-radius:50%; }
+
+    .hero-text { color: #fff; }
+    .hero-eyebrow {
+      font-family: var(--font-display); font-size: 0.8rem; font-weight: 600;
+      color: var(--accent-2); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -2px;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 .accent-word {
+      background: linear-gradient(90deg, var(--accent-2), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300;
+      color: rgba(255,255,255,0.75); max-width: 520px;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-subtitle {
+      font-size: 0.95rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:none;} }
+
+    /* Floating stats */
+    .hero-stats {
+      display: flex; gap: 2rem; margin-top: 3rem;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat strong {
+      display: block; font-family: var(--font-display); font-size: 2rem;
+      font-weight: 800; color: #fff; line-height: 1;
+    }
+    .hero-stat span { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.4); font-size: 0.75rem; letter-spacing: 2px;
+      animation: fadeUp 1s 0.8s ease both;
+    }
+    .scroll-arrow {
+      width: 24px; height: 24px;
+      border-right: 2px solid rgba(255,255,255,0.3);
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      transform: rotate(45deg);
+      animation: scrollBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes scrollBounce { 0%,100%{transform:rotate(45deg) translateY(0);} 50%{transform:rotate(45deg) translateY(6px);} }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.9rem;
+      padding: 0.75rem 1.75rem; border-radius: 10px;
+      cursor: pointer; border: none;
+      transition: all var(--transition); position: relative; overflow: hidden;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.12);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+    }
+    .btn.ghost {
+      background: rgba(255,255,255,0.08); color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+    .btn.ghost:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); }
+    .btn.outline {
+      background: transparent; color: var(--accent);
+      border: 1.5px solid var(--accent); border-radius: 8px;
+    }
+    .btn.outline:hover { background: var(--accent); color: #fff; }
+    .btn.dark {
+      background: var(--ink); color: #fff;
+      box-shadow: 0 4px 16px rgba(10,15,30,0.25);
+    }
+
+    /* =============================================
+       SECTION HEADINGS
+    ============================================= */
+    .section-label {
+      font-family: var(--font-display); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem; display: block;
+    }
+    h2 {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; color: var(--ink); line-height: 1.15; letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+    .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 600px; }
+
+    /* =============================================
+       ABOUT
+    ============================================= */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-text p { margin-bottom: 1.1rem; color: var(--text); font-size: 1rem; }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-bg {
+      position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: var(--radius); opacity: 0.12;
+    }
+    .about-img-wrap img {
+      border-radius: var(--radius); width: 100%;
+      box-shadow: var(--shadow-lg); position: relative; z-index: 1;
+    }
+    .quick-stats {
+      display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap;
+    }
+    .stat-card {
+      background: var(--white); border: 1px solid #e2e8f0;
+      border-radius: var(--radius-sm); padding: 1.2rem 1.5rem;
+      text-align: center; flex: 1; min-width: 120px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .stat-card strong {
+      display: block; font-family: var(--font-display); font-size: 2rem;
+      font-weight: 800; color: var(--accent); line-height: 1;
+    }
+    .stat-card span { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; display: block; }
+
+    /* =============================================
+       SKILLS
+    ============================================= */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .skills-col {
+      background: var(--white); border-radius: var(--radius); padding: 2rem;
+      border: 1px solid #e2e8f0; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .skills-col h3 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skills-col h3::before {
+      content: ''; width: 4px; height: 18px; border-radius: 2px;
+      background: linear-gradient(var(--accent), var(--accent-2));
+    }
+    .skills-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .skills-list li {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.93rem; color: var(--text); padding: 0.5rem 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .skills-list li::before {
+      content: '✓'; color: var(--accent); font-weight: 700;
+      font-size: 0.8rem; flex-shrink: 0;
+      width: 20px; height: 20px; background: rgba(37,99,235,0.08);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .skills-list li:last-child { border-bottom: none; }
+
+    /* =============================================
+       SERVICES
+    ============================================= */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 2rem; border: 1px solid #e2e8f0;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(37,99,235,0.15);
+    }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(14,165,233,0.1));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* =============================================
+       PORTFOLIO
+    ============================================= */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;
+    }
+    .project {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid #e2e8f0; overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .project:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .project-img-wrap { position: relative; overflow: hidden; aspect-ratio: 16/9; }
+    .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .project:hover .project-img-wrap img { transform: scale(1.06); }
+    .project-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,15,30,0.6) 0%, transparent 60%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .project:hover .project-img-overlay { opacity: 1; }
+    .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .project-body h3 {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 0.6rem;
+    }
+    .project-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 1.25rem; }
+    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tag {
+      font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.65rem;
+      border-radius: 20px; background: rgba(37,99,235,0.08); color: var(--accent);
+    }
+    .project-featured {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .project-featured .project-img-wrap { aspect-ratio: auto; min-height: 260px; }
+
+    /* =============================================
+       ACHIEVEMENTS
+    ============================================= */
+    .achievement-card {
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+      background: var(--white); border: 1px solid #e2e8f0;
+      border-radius: var(--radius); padding: 2rem;
+      box-shadow: var(--shadow-md); max-width: 660px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .achievement-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .achievement-card img { width: 110px; min-width: 90px; border-radius: 12px; box-shadow: 0 2px 12px rgba(79,70,229,0.2); }
+    .achievement-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .achievement-card p { font-size: 0.93rem; color: var(--text); margin-bottom: 0.5rem; }
+    .achievement-card p.desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem; }
+
+    /* =============================================
+       VALUES
+    ============================================= */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .value-card {
+      background: var(--white); border-radius: var(--radius-sm); padding: 1.5rem;
+      border-left: 3px solid var(--accent); border: 1px solid #e2e8f0;
+      border-left: 3px solid var(--accent);
+      transition: transform var(--transition);
+    }
+    .value-card:hover { transform: translateX(4px); }
+    .value-card strong { font-family: var(--font-display); font-size: 1rem; color: var(--ink); display: block; margin-bottom: 0.4rem; }
+    .value-card span { font-size: 0.88rem; color: var(--muted); }
+
+    /* =============================================
+       WHY ME
+    ============================================= */
+    .whyme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .whyme-card {
+      background: var(--ink); color: #fff; border-radius: var(--radius); padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform var(--transition);
+    }
+    .whyme-card::before {
+      content: attr(data-num);
+      position: absolute; top: -10px; right: 12px;
+      font-family: var(--font-display); font-size: 5rem; font-weight: 800;
+      color: rgba(255,255,255,0.04); line-height: 1;
+    }
+    .whyme-card:hover { transform: translateY(-6px); }
+    .whyme-card h3 {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+      color: var(--accent-2); margin-bottom: 0.75rem;
+    }
+    .whyme-card p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.65; }
+
+    /* =============================================
+       REVIEWS
+    ============================================= */
+    .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .review-card {
+      background: var(--white); border-radius: var(--radius); padding: 1.75rem;
+      border: 1px solid #e2e8f0; position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .review-card::before {
+      content: '"'; font-family: var(--font-display); font-size: 5rem; line-height: 1;
+      color: rgba(37,99,235,0.08); position: absolute; top: 0.5rem; left: 1.25rem;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .review-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .review-head strong { font-family: var(--font-display); font-size: 0.95rem; color: var(--ink); }
+    .stars { color: var(--gold); letter-spacing: 2px; font-size: 0.85rem; }
+    .review-card p { font-size: 0.91rem; color: var(--text); line-height: 1.7; font-style: italic; }
+    .review-role { font-size: 0.78rem; color: var(--muted); margin-top: 0.75rem; font-style: normal; }
+
+    /* =============================================
+       CONTACT
+    ============================================= */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-info h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+    .contact-info p { color: var(--muted); font-size: 0.95rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.85rem 1.25rem; background: var(--white);
+      border: 1px solid #e2e8f0; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 500; color: var(--ink);
+      transition: all var(--transition);
+    }
+    .contact-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateX(4px); }
+    .contact-link .cl-icon { font-size: 1.1rem; width: 28px; text-align: center; }
+
+    /* Social row */
+    .social-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+    .icon-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--white); border: 1px solid #e2e8f0;
+      font-size: 0.75rem; font-weight: 600; color: var(--muted);
+      transition: all var(--transition); text-decoration: none;
+    }
+    .icon-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
+
+    /* Contact form */
+    .contact-form { background: var(--white); border-radius: var(--radius); padding: 2.5rem; border: 1px solid #e2e8f0; box-shadow: var(--shadow-md); }
+    .contact-form h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 1.5rem; }
+    .contact-form label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid #e2e8f0; border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-size: 0.93rem; color: var(--ink);
+      background: var(--surface); transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+
+    /* =============================================
+       AVAILABILITY BANNER
+    ============================================= */
+    .availability-banner {
+      background: linear-gradient(135deg, var(--ink), var(--ink-2));
+      color: #fff; text-align: center; padding: 3rem 1.5rem;
+    }
+    .availability-banner p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
+    .availability-banner h2 { color: #fff; margin-bottom: 0.5rem; }
+    .avail-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(16,185,129,0.15); color: var(--green);
+      border: 1px solid rgba(16,185,129,0.3); border-radius: 20px;
+      padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .avail-pill::before { content:''; width:8px; height:8px; background:var(--green); border-radius:50%; animation:pulse-badge 1.5s ease-in-out infinite; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      background: var(--ink); color: rgba(255,255,255,0.5);
+      padding: 2rem 0; font-size: 0.85rem;
+    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-inner a { color: rgba(255,255,255,0.6); transition: color var(--transition); }
+    .footer-inner a:hover { color: var(--accent-2); }
+    .footer-social { display: flex; gap: 1rem; }
+
+    /* =============================================
+       ALT BG
+    ============================================= */
+    .alt-bg { background: var(--surface-2); }
+
+    /* =============================================
+       MOBILE NAV
+    ============================================= */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav {
+        display: none; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(248,249,252,0.98); backdrop-filter: blur(16px);
+        padding: 1.5rem; border-bottom: 1px solid #e2e8f0;
+        gap: 0.25rem;
+      }
+      nav.open { display: flex; }
+      nav a { padding: 0.75rem 1rem; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .hero-photo-wrap { margin: 0 auto; }
+      .hero-ctas { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-featured { grid-template-columns: 1fr; }
+      .whyme-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+
+    /* =============================================
+       MISC
+    ============================================= */
+    .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .mission-card {
+      background: var(--white); border-radius: var(--radius); padding: 1.75rem;
+      border: 1px solid #e2e8f0;
+    }
+    .mission-card h3 { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .mission-card p { font-size: 0.93rem; color: var(--text); line-height: 1.65; }
+    @media(max-width:768px){ .mission-grid{grid-template-columns:1fr;} }
+  </style>
 </head>
 <body>
-  <header class="site-header">
+
+  <div id="cursor-glow"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
     <div class="container header-inner">
       <div class="brand">DigiWebs</div>
-      <nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="main-nav">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#services">Services</a>
@@ -23,229 +678,537 @@
         <a href="#achievements">Achievements</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
-        <a href="cv.html" target="_blank" rel="noopener">CV</a>
+        <a href="cv.html" target="_blank" rel="noopener" class="nav-cta">View CV ↗</a>
       </nav>
     </div>
   </header>
+
   <main>
+
+    <!-- ===== HERO ===== -->
     <section id="hero" class="hero">
       <div class="container hero-inner">
-        <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs">
-        <div>
-          <h1>Brian Murithi</h1>
-          <h3>Secure, user-centred web & mobile systems for schools, SMEs and organisations in Africa.</h3>
-          <p class="subtitle">Web developer, app developer, and records management specialist. I build digital solutions that help you scale and create impact.</p>
+        <div class="hero-photo-wrap">
+          <img class="profile-photo" src="images/me.png" alt="Brian Murithi — Founder of DigiWebs" onerror="this.src='https://ui-avatars.com/api/?name=Brian+Murithi&size=180&background=2563eb&color=fff&bold=true'">
+          <div class="hero-badge">Available for hire</div>
         </div>
-      </div>
-    </section>
-    <section id="about" class="section container">
-      <h2>About Me</h2>
-      <p>I’m Brian Murithi, a detail-oriented web and app developer, digital strategist, and records management specialist based in Kenya. My passion is building practical, secure, and scalable digital solutions for schools, SMEs, NGOs, and community organisations across Africa. I combine technical expertise, business acumen, and a human-centred approach to deliver systems that solve real-world problems and drive growth.</p>
-      <p>With a background in IT, business management, and digital transformation, I have delivered solutions that empower teams, streamline operations, and unlock new opportunities. I believe in making technology accessible, sustainable, and impactful for all — whether you’re a school, a business, a non-profit, or a growing enterprise. Let’s build something that lasts and creates value for your organisation and community.</p>
-      <div class="quick-stats" style="display:flex;gap:2rem;margin-top:1.5rem;">
-        <div class="stat-card"><strong>100+</strong><span>People empowered</span></div>
-        <div class="stat-card"><strong>10+</strong><span>Systems delivered</span></div>
-        <div class="stat-card"><strong>60%</strong><span>Avg admin time reduction</span></div>
-      </div>
-    </section>
-    <section id="skills" class="section container">
-      <h2>Skills</h2>
-      <p class="subtitle">Technical skills I use regularly to build stable, maintainable systems.</p>
-      <div class="skills-grid">
-        <div class="skills-col">
-          <h3>IT Skills</h3>
-          <ul class="skills-list">
-            <li>Web Development (HTML / CSS / JS)</li>
-            <li>App Development (Android, PWA, cross-platform)</li>
-            <li>Backend & APIs (Node, PHP)</li>
-            <li>Databases (MySQL)</li>
-            <li>DevOps basics (Docker, CI)</li>
-            <li>Networking & Security fundamentals</li>
-            <li>Records Management systems</li>
-            <li>Cloud Solutions (deployment, hosting, SaaS)</li>
-            <li>Automation & Workflow tools</li>
-            <li>AI Integration (chatbots, smart features)</li>
-          </ul>
-        </div>
-        <div class="skills-col">
-          <h3>Computer Skills</h3>
-          <ul class="skills-list">
-            <li>MS Office (Excel, Word, PowerPoint)</li>
-            <li>Excel (formulas, pivot tables, reporting)</li>
-            <li>Google Workspace (Docs, Sheets, Drive)</li>
-            <li>Data entry & documentation</li>
-            <li>SOPs, technical documentation & training</li>
-            <li>Version control & collaboration (Git, GitHub)</li>
-            <li>Presentation & pitch deck design</li>
-            <li>Digital literacy & troubleshooting</li>
-            <li>Internet research & information sourcing</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section id="services" class="section alt-bg container">
-      <h2>Services</h2>
-      <p class="subtitle">From idea to impact — end-to-end digital services tailored for organisations in Africa.</p>
-      <ul class="skills-list">
-        <li><strong>Web & App Development:</strong> Custom responsive web and mobile applications, dashboards, and portals focused on usability, performance, and security.</li>
-        <li><strong>Records Management Systems:</strong> Secure, searchable student, office, and business records systems with compliance-minded data practices.</li>
-        <li><strong>Business Management Solutions:</strong> CRMs, workflow automation, and tools to help you run and grow your organisation efficiently.</li>
-        <li><strong>Digital Strategy & Branding:</strong> Digital roadmaps, branding, and marketing that increase reach, engagement, and impact.</li>
-        <li><strong>IT Consulting & Training:</strong> Consultancy, training, and support to help your team adopt, manage, and benefit from digital tools and best practices.</li>
-        <li><strong>Cloud & Automation:</strong> Cloud deployment, SaaS integration, and automation solutions to modernise your operations and save time.</li>
-      </ul>
-    </section>
-    <section id="portfolio" class="section container">
-      <h2>Selected Work</h2>
-      <p class="subtitle">A showcase of digital products, platforms, and systems I have built for business, education, and impact.</p>
-      <div class="projects-grid">
-        <div class="project">
-          <img src="images/digiwebs.png" alt="DigiWebs business website" style="width:100%;border-radius:8px;">
-          <h3>DigiWebs — Business Website</h3>
-          <p>A modern business website and digital solutions platform for African SMEs, schools, and organisations. Features resources, support, and a client portal to help businesses grow and thrive in the digital era.</p>
-          <a class="btn outline" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit DigiWebs</a>
-        </div>
-        <div class="project">
-          <img src="images/algorithmforge.png" alt="Algorithm Forge app" style="width:100%;border-radius:8px;">
-          <h3>Algorithm Forge</h3>
-          <p>A powerful app for developers and non-developers to generate algorithms, chat with peers, access a marketplace, and earn from their creations. Designed for collaboration, learning, and monetization in the tech community.</p>
-          <a class="btn outline" href="https://algorithmforge.base44.app/" target="_blank" rel="noopener">Visit Algorithm Forge</a>
-        </div>
-        <div class="project">
-          <img src="images/digi-learning.png" alt="Digi-Learning platform" style="width:100%;border-radius:8px;">
-          <h3>Digi-Learning — Free Computer Skills</h3>
-          <p>A free learning platform where anyone can learn computer skills, take interactive lessons, and earn certificates. Built to empower youth and adults with digital literacy for the modern world.</p>
-          <a class="btn outline" href="https://digi-learning.base44.app/" target="_blank" rel="noopener">Visit Digi-Learning</a>
-        </div>
-        <div class="project">
-          <img src="images/digicreate.png" alt="DigiCreate creative app" style="width:100%;border-radius:8px;">
-          <h3>DigiCreate — Creative Suite</h3>
-          <p>A creative tool where users can bring their imagination to life: generate images, edit photos, create music, and more. Designed for creators, students, and professionals to unleash creativity with AI-powered tools.</p>
-          <a class="btn outline" href="https://digi-create.base44.app/" target="_blank" rel="noopener">Visit DigiCreate</a>
-        </div>
-        <div class="project">
-          <img src="images/agartk.png" alt="AGART-K website" style="width:100%;border-radius:8px;">
-          <h3>AGART-K — Livestock Genetics Platform</h3>
-          <p>I built the official website for AGART-K, your trusted partner in livestock genetic improvement and advanced reproductive technologies. AGART-K empowers farmers and breeders across Kenya with world-class solutions for animal production, breeding, and sustainable agriculture.</p>
-          <a class="btn outline" style="background:#fbbf24;color:#1e293b;font-weight:bold;box-shadow:0 2px 16px #fbbf2455;" href="https://agart-k.gt.tc/" target="_blank" rel="noopener">Visit AGART-K</a>
-        </div>
-      </div>
-    </section>
-    <section id="achievements" class="section container">
-      <h2>Recent Achievements</h2>
-      <div class="achievement-card" style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;background:#f5f7fa;border:1.5px solid #e0e7ef;box-shadow:0 2px 12px #0001;padding:1.5rem 2rem 1.5rem 1.5rem;max-width:600px;margin-bottom:2rem;">
-        <img src="https://images.credly.com/size/340x340/images/50b96632-6cbb-40b7-ac0e-b83f49ff7f94/image.png" alt="IBM Cybersecurity Fundamentals Badge" style="width:110px;min-width:90px;border-radius:12px;box-shadow:0 2px 12px #4F46E522;">
-        <div style="flex:1;min-width:220px;">
-          <h3 style="margin-top:0;margin-bottom:0.5rem;color:#1e293b;">Cybersecurity Fundamentals</h3>
-          <p style="margin:0 0 0.5rem 0;font-size:1rem;"><strong>Issued by:</strong> IBM SkillsBuild<br>
-          <strong>Date:</strong> April 19, 2026</p>
-          <p style="margin:0 0 1rem 0;font-size:0.98rem;color:#334155;">
-            This credential earner demonstrates a foundational understanding of cybersecurity concepts, objectives, and practices. Includes threat groups, types of attacks, social engineering, security strategies, cryptography, and more.
-          </p>
-          <a class="btn" style="background:#1e293b;color:#fff;border:none;font-weight:bold;padding:0.6rem 1.7rem;font-size:1rem;box-shadow:0 2px 8px #0001;" href="https://www.credly.com/badges/234bad61-88a8-4893-a79e-bdf723e7a18c" target="_blank" rel="noopener">Verify Badge</a>
-        </div>
-      </div>
-    </section>
-    <section id="values" class="section container alt-bg">
-      <h2>Mission, Vision & Values</h2>
-      <p><strong>Mission:</strong> Build digital systems that create long-term opportunity and equity across communities in Africa.</p>
-      <p><strong>Vision:</strong> To be a trusted partner in Africa’s digital transformation, empowering organisations to thrive through technology that is accessible, secure, and sustainable.</p>
-      <ul class="values-list">
-        <li><strong>Impact-driven</strong> — measurable outcomes over buzzwords.</li>
-        <li><strong>Inclusive</strong> — accessible by design, for all users.</li>
-        <li><strong>Sustainable</strong> — built to last and easy to maintain.</li>
-        <li><strong>Integrity</strong> — honest advice and transparent processes.</li>
-        <li><strong>Collaboration</strong> — working closely with clients for the best results.</li>
-        <li><strong>Continuous Learning</strong> — always improving, always adapting.</li>
-      </ul>
-    </section>
-    <section id="whyme" class="section container">
-      <h2>Why Choose Me?</h2>
-      <div class="whyme-grid">
-        <div class="whyme-card">
-          <h3>Proven Results</h3>
-          <p>Delivered 10+ systems that improved efficiency, reduced admin time, and empowered users across sectors.</p>
-        </div>
-        <div class="whyme-card">
-          <h3>Full-Stack Expertise</h3>
-          <p>Skilled in web, app, backend, cloud, and automation — your one-stop partner for digital transformation.</p>
-        </div>
-        <div class="whyme-card">
-          <h3>Client-Focused</h3>
-          <p>I listen, advise, and build with your goals in mind. My solutions are practical, sustainable, and tailored to your needs.</p>
-        </div>
-        <div class="whyme-card">
-          <h3>Secure & Reliable</h3>
-          <p>Security and reliability are built into every project, ensuring your data and operations are protected.</p>
-        </div>
-        <div class="whyme-card">
-          <h3>Affordable & Transparent</h3>
-          <p>Clear pricing, honest advice, and no hidden costs. Get value for your investment.</p>
-        </div>
-      </div>
-    </section>
-    <section id="reviews" class="section container alt-bg">
-      <h2>Client Reviews</h2>
-      <p class="subtitle">Real feedback from clients — honest, specific and outcome-focused.</p>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-head"><strong>James Kinoti</strong> <span style="color:#fbbf24;">★★★★☆</span></div>
-          <p>Brian delivered a robust mobile app for our field operations. The app made data collection effortless and reduced manual errors significantly. He was responsive, practical and delivered on time — highly recommend for any SME looking for a dependable developer.</p>
-        </div>
-        <div class="review-card">
-          <div class="review-head"><strong>Aisha Mwende</strong> <span style="color:#fbbf24;">★★★★★</span></div>
-          <p>The records management system Brian built transformed our school admin. Searching records is now instant and secure — we saved hours each week.</p>
-        </div>
-        <div class="review-card">
-          <div class="review-head"><strong>Peter Ouma</strong> <span style="color:#fbbf24;">★★★★★</span></div>
-          <p>Brian redesigned our website and improved conversion. The new site is faster, clearer and easier to manage.</p>
-        </div>
-        <div class="review-card">
-          <div class="review-head"><strong>Grace Njeri</strong> <span style="color:#fbbf24;">★★★★★</span></div>
-          <p>Brian provided practical business advice that helped our SME scale operations. His solutions are realistic and easy to implement.</p>
-        </div>
-      </div>
-    </section>
-    <section id="contact" class="section container alt-bg">
-      <h2>Contact</h2>
-      <p>Want to build something that matters? I’m available for projects, partnerships and mentorship.</p>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <img class="profile-photo" src="images/me.png" alt="Brian Murithi" style="width:80px;height:80px;">
-          <p><strong>Build with purpose.</strong> I take on projects and partnerships that create measurable impact — schools, SMEs, NGOs, and community platforms welcome. Available for freelance and partnership work; I usually reply within 48 hours. Reach me below.</p>
-          <div class="social" role="list">
-            <a class="icon-link" href="tel:+254728390357" aria-label="Call Brian" role="listitem">Phone</a>
-            <a class="icon-link" href="https://wa.me/254728390357" target="_blank" rel="noopener" aria-label="WhatsApp Brian" role="listitem">WhatsApp</a>
-            <a class="icon-link" href="https://linkedin.com/in/brianmurithi" target="_blank" rel="noopener" aria-label="LinkedIn" role="listitem">LinkedIn</a>
-            <a class="icon-link" href="https://facebook.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Facebook" role="listitem">Facebook</a>
-            <a class="icon-link" href="https://twitter.com/Gen3785" target="_blank" rel="noopener" aria-label="Twitter" role="listitem">Twitter/X</a>
-            <a class="icon-link" href="https://instagram.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Instagram" role="listitem">Instagram</a>
-            <a class="icon-link" href="mailto:websitesbrian585@gmail.com" aria-label="Email" role="listitem">Email</a>
+        <div class="hero-text">
+          <p class="hero-eyebrow">👋 Hello, I'm</p>
+          <h1>Brian <span class="accent-word">Murithi</span></h1>
+          <p class="hero-tagline">Secure, user-centred web &amp; mobile systems for schools, SMEs and organisations across Africa.</p>
+          <p class="hero-subtitle">Web Developer · App Developer · Records Management Specialist · Digital Strategist</p>
+          <div class="hero-ctas">
+            <a href="#portfolio" class="btn primary">See My Work →</a>
+            <a href="#contact" class="btn ghost">Let's Talk</a>
+            <a href="cv.html" target="_blank" rel="noopener" class="btn ghost">Download CV</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>10+</strong><span>Systems Delivered</span></div>
+            <div class="hero-stat"><strong>100+</strong><span>People Empowered</span></div>
+            <div class="hero-stat"><strong>60%</strong><span>Avg Time Saved</span></div>
           </div>
         </div>
-        <form id="contactForm" class="contact-form" action="https://formspree.io/f/xwkzjvqd" method="POST" style="flex:1 1 320px;max-width:400px;">
-          <label>Name<input type="text" name="name" required></label>
-          <label>Email<input type="email" name="_replyto" required></label>
-          <label>Message<textarea name="message" rows="4" required></textarea></label>
+      </div>
+      <div class="scroll-cue">
+        <span>SCROLL</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section container">
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <span class="section-label">About Me</span>
+          <h2>Building Digital Impact Across Africa</h2>
+          <p>I'm Brian Murithi, a detail-oriented web and app developer, digital strategist, and records management specialist based in Kenya. My passion is building practical, secure, and scalable digital solutions for schools, SMEs, NGOs, and community organisations across Africa.</p>
+          <p>I combine technical expertise, business acumen, and a human-centred approach to deliver systems that solve real-world problems and drive growth. With a background in IT, business management, and digital transformation, I have delivered solutions that empower teams, streamline operations, and unlock new opportunities.</p>
+          <p>I believe in making technology accessible, sustainable, and impactful for all — whether you're a school, a business, a non-profit, or a growing enterprise. Let's build something that lasts and creates lasting value for your organisation and community.</p>
+          <div class="quick-stats">
+            <div class="stat-card"><strong>100+</strong><span>People empowered</span></div>
+            <div class="stat-card"><strong>10+</strong><span>Systems delivered</span></div>
+            <div class="stat-card"><strong>60%</strong><span>Avg admin time saved</span></div>
+          </div>
+        </div>
+        <div class="about-img-wrap reveal-right">
+          <div class="about-img-bg"></div>
+          <img src="images/me.png" alt="Brian Murithi" onerror="this.src='https://ui-avatars.com/api/?name=Brian+Murithi&size=400&background=1c2540&color=fff&bold=true'">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section alt-bg">
+      <div class="container">
+        <span class="section-label reveal">Skills</span>
+        <h2 class="reveal">Technical & Professional Expertise</h2>
+        <p class="subtitle reveal">Technical skills I use regularly to build stable, maintainable, and impactful systems.</p>
+        <div class="skills-grid">
+          <div class="skills-col reveal-left">
+            <h3>IT &amp; Development</h3>
+            <ul class="skills-list">
+              <li>Web Development (HTML / CSS / JS)</li>
+              <li>App Development (Android, PWA, cross-platform)</li>
+              <li>Backend &amp; APIs (Node.js, PHP)</li>
+              <li>Databases (MySQL)</li>
+              <li>DevOps basics (Docker, CI/CD)</li>
+              <li>Networking &amp; Security fundamentals</li>
+              <li>Records Management systems</li>
+              <li>Cloud Solutions (deployment, hosting, SaaS)</li>
+              <li>Automation &amp; Workflow tools</li>
+              <li>AI Integration (chatbots, smart features)</li>
+            </ul>
+          </div>
+          <div class="skills-col reveal-right">
+            <h3>Business &amp; Digital Tools</h3>
+            <ul class="skills-list">
+              <li>MS Office (Excel, Word, PowerPoint)</li>
+              <li>Excel (formulas, pivot tables, reporting)</li>
+              <li>Google Workspace (Docs, Sheets, Drive)</li>
+              <li>Data entry &amp; documentation</li>
+              <li>SOPs, technical documentation &amp; training</li>
+              <li>Version control &amp; collaboration (Git, GitHub)</li>
+              <li>Presentation &amp; pitch deck design</li>
+              <li>Digital literacy &amp; troubleshooting</li>
+              <li>Internet research &amp; information sourcing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" class="section container">
+      <span class="section-label reveal">Services</span>
+      <h2 class="reveal">What I Build For You</h2>
+      <p class="subtitle reveal">From idea to impact — end-to-end digital services tailored for organisations in Africa.</p>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🌐</div>
+          <h3>Web &amp; App Development</h3>
+          <p>Custom responsive web and mobile applications, dashboards, and portals focused on usability, performance, and security.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🗂️</div>
+          <h3>Records Management Systems</h3>
+          <p>Secure, searchable student, office, and business records systems with compliance-minded data practices.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Business Management Solutions</h3>
+          <p>CRMs, workflow automation, and tools to help you run and grow your organisation efficiently.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📣</div>
+          <h3>Digital Strategy &amp; Branding</h3>
+          <p>Digital roadmaps, branding, and marketing that increase reach, engagement, and impact across your audience.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎓</div>
+          <h3>IT Consulting &amp; Training</h3>
+          <p>Consultancy, training, and support to help your team adopt, manage, and benefit from digital tools and best practices.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">☁️</div>
+          <h3>Cloud &amp; Automation</h3>
+          <p>Cloud deployment, SaaS integration, and automation solutions to modernise your operations and save time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio" class="section alt-bg">
+      <div class="container">
+        <span class="section-label reveal">Portfolio</span>
+        <h2 class="reveal">Selected Work</h2>
+        <p class="subtitle reveal">A showcase of digital products, platforms, and systems I've built for business, education, and impact.</p>
+        <div class="projects-grid">
+
+          <!-- Featured: DigiWebs -->
+          <div class="project project-featured reveal">
+            <div class="project-img-wrap">
+              <img src="images/digiwebs.png" alt="DigiWebs business website" onerror="this.style.background='linear-gradient(135deg,#1c2540,#2563eb)';this.alt=''">
+              <div class="project-img-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Web Platform</span>
+                <span class="tag">SME</span>
+                <span class="tag">Africa</span>
+              </div>
+              <h3>DigiWebs — Business Website &amp; Digital Hub</h3>
+              <p>A modern business website and digital solutions platform for African SMEs, schools, and organisations. Features resources, support, and a client portal to help businesses grow and thrive in the digital era.</p>
+              <a class="btn primary" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Visit DigiWebs ↗</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-img-wrap">
+              <img src="images/algorithmforge.png" alt="Algorithm Forge" onerror="this.style.background='linear-gradient(135deg,#0f2050,#0ea5e9)';this.alt=''">
+              <div class="project-img-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">App</span><span class="tag">Developer Tool</span></div>
+              <h3>Algorithm Forge</h3>
+              <p>A powerful app for developers and non-developers to generate algorithms, chat with peers, access a marketplace, and earn from their creations.</p>
+              <a class="btn outline" href="https://algorithmforge.base44.app/" target="_blank" rel="noopener">Visit ↗</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-img-wrap">
+              <img src="images/digi-learning.png" alt="Digi-Learning" onerror="this.style.background='linear-gradient(135deg,#064e3b,#10b981)';this.alt=''">
+              <div class="project-img-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">EdTech</span><span class="tag">Free Platform</span></div>
+              <h3>Digi-Learning — Free Computer Skills</h3>
+              <p>A free learning platform where anyone can learn computer skills, take interactive lessons, and earn certificates. Built to empower youth and adults with digital literacy.</p>
+              <a class="btn outline" href="https://digi-learning.base44.app/" target="_blank" rel="noopener">Visit ↗</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-img-wrap">
+              <img src="images/digicreate.png" alt="DigiCreate" onerror="this.style.background='linear-gradient(135deg,#4c1d95,#7c3aed)';this.alt=''">
+              <div class="project-img-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">AI Tools</span><span class="tag">Creative</span></div>
+              <h3>DigiCreate — Creative Suite</h3>
+              <p>A creative tool where users can generate images, edit photos, create music, and more — with AI-powered tools for creators, students, and professionals.</p>
+              <a class="btn outline" href="https://digi-create.base44.app/" target="_blank" rel="noopener">Visit ↗</a>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="project-img-wrap">
+              <img src="images/agartk.png" alt="AGART-K" onerror="this.style.background='linear-gradient(135deg,#14532d,#16a34a)';this.alt=''">
+              <div class="project-img-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">AgriTech</span><span class="tag">NGO</span><span class="tag">Kenya</span></div>
+              <h3>AGART-K — Livestock Genetics Platform</h3>
+              <p>Official website for AGART-K, empowering Kenyan farmers and breeders with world-class livestock genetic improvement and advanced reproductive technologies.</p>
+              <a class="btn outline" href="https://agart-k.gt.tc/" target="_blank" rel="noopener">Visit ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section id="achievements" class="section container">
+      <span class="section-label reveal">Achievements</span>
+      <h2 class="reveal">Certifications &amp; Milestones</h2>
+      <div class="achievement-card reveal">
+        <img src="https://images.credly.com/size/340x340/images/50b96632-6cbb-40b7-ac0e-b83f49ff7f94/image.png" alt="IBM Cybersecurity Fundamentals Badge" onerror="this.src='https://ui-avatars.com/api/?name=Cybersecurity&size=110&background=c0143c&color=fff&bold=true'">
+        <div style="flex:1;min-width:220px;">
+          <h3>Cybersecurity Fundamentals</h3>
+          <p><strong>Issued by:</strong> IBM SkillsBuild &nbsp;|&nbsp; <strong>Date:</strong> April 19, 2026</p>
+          <p class="desc">Demonstrates a foundational understanding of cybersecurity concepts, objectives, and practices — including cyber threat groups, types of attacks, social engineering, case studies, overall security strategies, cryptography, and common industry approaches to threat detection and incident response.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;">
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cryptography</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cyber Attacks</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cybersecurity</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cybersecurity Processes</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cybersecurity Risk Management</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cyber Threat Analysis</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Cyber Threat Intelligence</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Incident Response</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Information Security</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Security Strategies</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Social Engineering</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Threat Analysis</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Threat Detection</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(192,20,60,0.08);color:#c0143c;">Vulnerability Management</span>
+          </div>
+          <a class="btn dark" href="https://www.credly.com/badges/234bad61-88a8-4893-a79e-bdf723e7a18c" target="_blank" rel="noopener">Verify Badge ↗</a>
+        </div>
+      </div>
+
+      <div class="achievement-card reveal" style="margin-top:1.5rem;">
+        <img src="https://images.credly.com/size/340x340/images/f275201a-2cad-47a8-b7c1-9c5d147503c4/image.png" alt="Code Generation and Optimization Using IBM Granite Badge" onerror="this.src='https://ui-avatars.com/api/?name=IBM+Granite&size=110&background=0f62fe&color=fff&bold=true'">
+        <div style="flex:1;min-width:220px;">
+          <h3>Code Generation and Optimization Using IBM Granite</h3>
+          <p><strong>Issued by:</strong> IBM SkillsBuild &nbsp;|&nbsp; <strong>Level:</strong> Advanced</p>
+          <p class="desc">Demonstrates technical knowledge and practical skills to use IBM Granite models for code generation, AI prompting techniques, and optimizing AI-generated code. Covers LLMs, structured review workflows, and analytical problem solving.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;">
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(37,99,235,0.08);color:var(--accent);">AI Prompting</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(37,99,235,0.08);color:var(--accent);">Code Generation</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(37,99,235,0.08);color:var(--accent);">Code Optimization</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(37,99,235,0.08);color:var(--accent);">Generative AI</span>
+            <span style="font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:20px;background:rgba(37,99,235,0.08);color:var(--accent);">LLMs</span>
+          </div>
+          <a class="btn dark" href="https://www.credly.com/badges/f275201a-2cad-47a8-b7c1-9c5d147503c4/public_url" target="_blank" rel="noopener">Verify Badge ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VALUES / MISSION ===== -->
+    <section id="values" class="section alt-bg">
+      <div class="container">
+        <span class="section-label reveal">Mission &amp; Values</span>
+        <h2 class="reveal">What Drives Me</h2>
+        <div class="mission-grid" style="margin-bottom:2.5rem;">
+          <div class="mission-card reveal">
+            <h3>Mission</h3>
+            <p>Build digital systems that create long-term opportunity and equity across communities in Africa.</p>
+          </div>
+          <div class="mission-card reveal">
+            <h3>Vision</h3>
+            <p>To be a trusted partner in Africa's digital transformation, empowering organisations to thrive through accessible, secure, and sustainable technology.</p>
+          </div>
+          <div class="mission-card reveal">
+            <h3>Approach</h3>
+            <p>Human-centred design. Honest advice. Transparent processes. Real outcomes over buzzwords, every single time.</p>
+          </div>
+        </div>
+        <div class="values-grid">
+          <div class="value-card reveal"><strong>🎯 Impact-driven</strong><span>Measurable outcomes over buzzwords and vanity metrics.</span></div>
+          <div class="value-card reveal"><strong>♿ Inclusive</strong><span>Accessible by design, built for all users and contexts.</span></div>
+          <div class="value-card reveal"><strong>🌱 Sustainable</strong><span>Built to last, easy to maintain and scale over time.</span></div>
+          <div class="value-card reveal"><strong>🤝 Integrity</strong><span>Honest advice and transparent processes, always.</span></div>
+          <div class="value-card reveal"><strong>💬 Collaboration</strong><span>Working closely with clients to deliver the best results.</span></div>
+          <div class="value-card reveal"><strong>📚 Continuous Learning</strong><span>Always improving, always adapting to what works.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHY ME ===== -->
+    <section id="whyme" class="section container">
+      <span class="section-label reveal">Why DigiWebs?</span>
+      <h2 class="reveal">Why Choose Me?</h2>
+      <div class="whyme-grid">
+        <div class="whyme-card reveal" data-num="01">
+          <h3>Proven Results</h3>
+          <p>Delivered 10+ systems that improved efficiency, reduced admin time, and empowered users across multiple sectors.</p>
+        </div>
+        <div class="whyme-card reveal" data-num="02">
+          <h3>Full-Stack Expertise</h3>
+          <p>Skilled in web, app, backend, cloud, and automation — your one-stop partner for end-to-end digital transformation.</p>
+        </div>
+        <div class="whyme-card reveal" data-num="03">
+          <h3>Client-Focused</h3>
+          <p>I listen, advise, and build with your goals in mind. Solutions are practical, sustainable, and tailored to your needs.</p>
+        </div>
+        <div class="whyme-card reveal" data-num="04">
+          <h3>Secure &amp; Reliable</h3>
+          <p>Security and reliability are built into every project from day one, ensuring your data and operations are protected.</p>
+        </div>
+        <div class="whyme-card reveal" data-num="05">
+          <h3>Affordable &amp; Transparent</h3>
+          <p>Clear pricing, honest advice, and no hidden costs. Get real value for your investment.</p>
+        </div>
+        <div class="whyme-card reveal" data-num="06">
+          <h3>Africa-First Mindset</h3>
+          <p>I understand local context, infrastructure, and the unique challenges of building digital products for African markets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section id="reviews" class="section alt-bg">
+      <div class="container">
+        <span class="section-label reveal">Testimonials</span>
+        <h2 class="reveal">Client Reviews</h2>
+        <p class="subtitle reveal">Real feedback from clients — honest, specific, and outcome-focused.</p>
+        <div class="reviews-grid">
+          <div class="review-card reveal">
+            <div class="review-head">
+              <strong>James Kinoti</strong>
+              <span class="stars">★★★★☆</span>
+            </div>
+            <p>Brian delivered a robust mobile app for our field operations. The app made data collection effortless and reduced manual errors significantly. He was responsive, practical and delivered on time — highly recommend for any SME looking for a dependable developer.</p>
+            <div class="review-role">Field Operations Manager · SME Client</div>
+          </div>
+          <div class="review-card reveal">
+            <div class="review-head">
+              <strong>Aisha Mwende</strong>
+              <span class="stars">★★★★★</span>
+            </div>
+            <p>The records management system Brian built transformed our school admin. Searching records is now instant and secure — we saved hours every single week. Truly impactful work.</p>
+            <div class="review-role">School Administrator · Education Sector</div>
+          </div>
+          <div class="review-card reveal">
+            <div class="review-head">
+              <strong>Peter Ouma</strong>
+              <span class="stars">★★★★★</span>
+            </div>
+            <p>Brian redesigned our website and improved conversion dramatically. The new site is faster, clearer and much easier to manage. Our online presence has never been better.</p>
+            <div class="review-role">Business Owner · SME Client</div>
+          </div>
+          <div class="review-card reveal">
+            <div class="review-head">
+              <strong>Grace Njeri</strong>
+              <span class="stars">★★★★★</span>
+            </div>
+            <p>Brian provided practical business and digital advice that helped our SME scale operations confidently. His solutions are realistic, easy to implement, and actually make a difference.</p>
+            <div class="review-role">Director · NGO Partner</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AVAILABILITY BANNER ===== -->
+    <div class="availability-banner">
+      <div class="container">
+        <div class="avail-pill">Available for new projects</div>
+        <h2>Ready to Build Something That Matters?</h2>
+        <p>I'm open to freelance projects, long-term partnerships, and mentorship. Let's create impact together.</p>
+        <a href="#contact" class="btn primary" style="font-size:1rem;">Start a Conversation →</a>
+      </div>
+    </div>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section container">
+      <span class="section-label reveal">Contact</span>
+      <h2 class="reveal">Let's Work Together</h2>
+      <div class="contact-grid">
+        <div class="contact-info reveal-left">
+          <h3>Build with purpose.</h3>
+          <p>I take on projects and partnerships that create measurable impact — schools, SMEs, NGOs, and community platforms welcome. I'm available for freelance and partnership work and usually reply within 48 hours.</p>
+          <div class="contact-links">
+            <a class="contact-link" href="tel:+254728390357">
+              <span class="cl-icon">📞</span> +254 728 390 357
+            </a>
+            <a class="contact-link" href="https://wa.me/254728390357" target="_blank" rel="noopener">
+              <span class="cl-icon">💬</span> Chat on WhatsApp
+            </a>
+            <a class="contact-link" href="mailto:websitesbrian585@gmail.com">
+              <span class="cl-icon">📧</span> websitesbrian585@gmail.com
+            </a>
+            <a class="contact-link" href="https://linkedin.com/in/brianmurithi" target="_blank" rel="noopener">
+              <span class="cl-icon">🔗</span> LinkedIn — Brian Murithi
+            </a>
+          </div>
+          <div class="social-row" style="margin-top:1.5rem;">
+            <a class="icon-link" href="https://linkedin.com/in/brianmurithi" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+            <a class="icon-link" href="https://facebook.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">f</a>
+            <a class="icon-link" href="https://twitter.com/Gen3785" target="_blank" rel="noopener" aria-label="Twitter/X" title="Twitter/X">𝕏</a>
+            <a class="icon-link" href="https://instagram.com/brian_wrld2" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">ig</a>
+            <a class="icon-link" href="https://wa.me/254728390357" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">wa</a>
+          </div>
+        </div>
+
+        <form id="contactForm" class="contact-form reveal-right" action="https://formspree.io/f/xwkzjvqd" method="POST">
+          <h3>Send Me a Message</h3>
+          <div class="form-group">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" name="_replyto" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="fsubject">Subject</label>
+            <input type="text" id="fsubject" name="subject" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label for="fmessage">Message</label>
+            <textarea id="fmessage" name="message" rows="5" required placeholder="Tell me about your project or idea..."></textarea>
+          </div>
           <input type="hidden" name="_subject" value="New contact from portfolio site">
-          <button class="btn primary" type="submit">Send message</button>
+          <button class="btn primary" type="submit" style="width:100%;justify-content:center;">Send Message →</button>
         </form>
       </div>
     </section>
+
   </main>
+
+  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year">2026</span> DigiWebs. Built for impact. Contact: <a href="mailto:websitesbrian585@gmail.com">websitesbrian585@gmail.com</a> • +254 728 390 357</p>
-      <div class="social">
-        <a href="https://linkedin.com/in/brianmurithi" aria-label="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:brian@digiwebs.co.ke" aria-label="Email">Email</a>
+      <p>© <span id="year"></span> DigiWebs. Built for impact by Brian Murithi · <a href="mailto:websitesbrian585@gmail.com">websitesbrian585@gmail.com</a> · +254 728 390 357</p>
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/brianmurithi" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://twitter.com/Gen3785" target="_blank" rel="noopener">Twitter/X</a>
+        <a href="https://wa.me/254728390357" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:websitesbrian585@gmail.com">Email</a>
       </div>
     </div>
   </footer>
+
   <script>
-    // Set current year
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('year').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Cursor glow
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('main-nav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      nav.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => { nav.classList.remove('open'); hamburger.classList.remove('open'); });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger children reveals
+    document.querySelectorAll('.services-grid, .projects-grid, .whyme-grid, .reviews-grid, .values-grid').forEach(grid => {
+      grid.querySelectorAll('.reveal').forEach((card, i) => {
+        card.style.transitionDelay = (i * 0.08) + 's';
+      });
+    });
+
+    // Smooth number counter animation
+    const counters = document.querySelectorAll('.hero-stat strong, .stat-card strong');
+    const countObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const raw = el.textContent.trim();
+        const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+        const suffix = raw.replace(/[0-9.]/g, '');
+        if (isNaN(num)) return;
+        let start = 0;
+        const duration = 1500;
+        const step = timestamp => {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = (Number.isInteger(num) ? Math.round(eased * num) : (eased * num).toFixed(0)) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => countObserver.observe(el));
+
+    // Form feedback
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async function(e) {
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
     });
   </script>
 </body>
