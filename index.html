@@ -9,6 +9,8 @@
   <title>Brian Murithi — DigiWebs | Full-Stack Developer</title>
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://brianmurithi.github.io/">
+  <link rel="icon" type="image/png" href="images/site.png">
+  <link rel="apple-touch-icon" href="images/site.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -158,6 +160,7 @@
       position: relative; z-index: 1;
       display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center;
     }
+    .hero-text, .hero-visual { min-width: 0; }
     .hero-eyebrow {
       font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600;
       color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase;
@@ -283,8 +286,22 @@
     /* =============================================
        SKILLS
     ============================================= */
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
-    .skills-col { background: var(--paper); border-radius: var(--radius); padding: 2rem; border: 1px solid var(--panel-line); }
+    .skills-carousel { perspective: 1400px; margin-top: 1.75rem; }
+    .skills-stage {
+      position: relative; height: 640px; overflow: hidden;
+      transform-style: preserve-3d; touch-action: pan-y;
+    }
+    .skills-col {
+      position: absolute; top: 50%; left: 50%;
+      width: min(620px, calc(100% - 2rem)); min-height: 540px;
+      background: var(--paper); border-radius: var(--radius);
+      padding: 2rem; border: 1px solid var(--panel-line);
+      box-shadow: var(--shadow-sm);
+      transform: translate(-50%, -50%) translateX(var(--x, 0px)) translateZ(var(--z, 0px)) rotateY(var(--rotation, 0deg)) scale(var(--scale, 1));
+      opacity: var(--opacity, 1); z-index: var(--layer, 1);
+      transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1), opacity 450ms ease, box-shadow var(--transition);
+    }
+    .skills-col[aria-current="true"] { box-shadow: var(--shadow-md); }
     .skills-col h3 {
       font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
       color: var(--ink); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem;
@@ -301,20 +318,45 @@
       content: ''; width: 5px; height: 5px; border-radius: 50%;
       background: var(--accent); flex-shrink: 0;
     }
+    .skills-carousel-controls { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1rem; }
+    .skills-carousel .carousel-control { transition: background var(--transition), color var(--transition), border-color var(--transition); }
+    .skills-carousel .carousel-control:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .skills-carousel .carousel-control:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .skills-carousel-status { min-width: 4rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; text-align: center; }
 
     /* =============================================
        SERVICES
     ============================================= */
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .service-card {
-      background: var(--paper); border-radius: var(--radius);
-      padding: 1.9rem; border: 1px solid var(--panel-line);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    .services-carousel { perspective: 1400px; margin-top: 1.75rem; }
+    .services-stage {
+      position: relative; height: 350px; overflow: hidden;
+      transform-style: preserve-3d; touch-action: pan-y;
     }
-    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent-soft-2); }
+    .service-card {
+      position: absolute; top: 50%; left: 50%;
+      width: min(360px, calc(100% - 2rem)); min-height: 235px;
+      padding: 1.9rem; background: var(--paper); border: 1px solid var(--panel-line);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      transform: translate(-50%, -50%) translateX(var(--x, 0px)) translateZ(var(--z, 0px)) rotateY(var(--rotation, 0deg)) scale(var(--scale, 1));
+      opacity: var(--opacity, 1); z-index: var(--layer, 1);
+      transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1), opacity 450ms ease, box-shadow var(--transition), border-color var(--transition);
+    }
+    .service-card[aria-current="true"] { box-shadow: var(--shadow-md); }
+    .service-card[aria-current="true"]:hover { border-color: var(--accent-soft-2); }
     .service-index { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 1px; }
     .service-card h3 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--ink); margin-bottom: 0.65rem; }
     .service-card p { font-size: 0.89rem; color: var(--muted); line-height: 1.65; }
+    .services-carousel-controls { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1rem; }
+    .carousel-control {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border: 1px solid var(--panel-line);
+      border-radius: 50%; background: var(--paper); color: var(--ink);
+      font: inherit; font-size: 1.2rem; cursor: pointer;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+    .carousel-control:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .carousel-control:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .carousel-status { min-width: 4rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; text-align: center; }
 
     /* =============================================
        PORTFOLIO
@@ -330,6 +372,17 @@
     .project-img-wrap { position: relative; overflow: hidden; aspect-ratio: 16/9; background: var(--panel); }
     .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .project:hover .project-img-wrap img { transform: scale(1.05); }
+    .project-logo-wrap { display: flex; align-items: center; justify-content: center; padding: 1.25rem; background: #fff; }
+    .project-img-wrap.project-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .project-image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.65rem; background: var(--panel); }
+    .project-img-wrap.project-image-pair img { min-width: 0; object-fit: contain; background: #fff; border-radius: 6px; }
+    .project-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; color: var(--ink); text-align: center;
+      font-family: var(--font-display); font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 700; letter-spacing: -0.5px;
+      background: radial-gradient(circle at 75% 25%, var(--accent-soft-2), transparent 40%), var(--panel);
+    }
     .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
     .project-body h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.6rem; }
     .project-body p { font-size: 0.87rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 1.25rem; }
@@ -481,13 +534,16 @@
       }
       nav.open { display: flex; }
       nav a.nav-cta { margin-left: 0; text-align: center; margin-top: 0.5rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .hero-visual { max-width: 320px; margin: 0 auto; }
+      .hero-inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(1rem, 3vw, 2rem); align-items: start; }
+      .hero h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -1.3px; }
+      .hero-visual { max-width: none; margin: 0; }
       .hero-motif { display: none; }
       .about-grid { grid-template-columns: 1fr; }
       .about-tag-card { position: static; margin-top: 1rem; display: inline-block; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
+      .skills-stage { height: 700px; }
+      .skills-col { width: min(500px, calc(100% - 2rem)); min-height: 600px; padding: 1.5rem; }
+      .services-stage { height: 330px; }
+      .service-card { width: min(320px, calc(100% - 2rem)); padding: 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-featured { grid-template-columns: 1fr; }
       .process-grid { grid-template-columns: 1fr 1fr; }
@@ -499,7 +555,20 @@
     }
     @media (max-width: 480px) {
       .process-grid { grid-template-columns: 1fr; }
-      .hero-stats { flex-wrap: wrap; row-gap: 1.25rem; }
+      .hero-inner { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr); gap: 0.75rem; }
+      .hero h1 { font-size: clamp(1.55rem, 7vw, 2rem); letter-spacing: -1px; }
+      .hero-eyebrow { font-size: 0.62rem; letter-spacing: 0.8px; gap: 0.35rem; }
+      .hero-tagline { font-size: 0.88rem; }
+      .hero-tags { font-size: 0.62rem; letter-spacing: 0.5px; }
+      .hero-ctas { gap: 0.45rem; }
+      .hero-ctas .btn { padding: 0.65rem 0.75rem; font-size: 0.75rem; }
+      .hero-ctas .btn.text { align-self: flex-start; padding: 0.35rem 0; }
+      .hero-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; }
+      .hero-stat strong { font-size: 1.35rem; }
+      .hero-stat span { font-size: 0.65rem; }
+      .hero-visual { gap: 0.5rem; }
+      .hero-photo-frame { padding: 5px; }
+      .status-panel { display: none; }
     }
   </style>
 </head>
@@ -532,13 +601,13 @@
       <div class="container hero-inner">
         <div class="hero-text">
           <p class="hero-eyebrow"><span class="avail-dot"></span>Available for new projects</p>
-          <h1>Brian Murithi —<br>Full-Stack <span>Developer</span></h1>
-          <p class="hero-tagline">I design and build secure, production-grade web and mobile products for founders and businesses worldwide — payment systems, booking platforms, dashboards, and the digital infrastructure that lets them run.</p>
+          <h1>I build digital products that move your business <span>forward.</span></h1>
+          <p class="hero-tagline">Secure web and mobile products that help businesses run smarter — from payment and booking systems to dashboards and custom digital tools.</p>
           <p class="hero-tags">Web · Mobile · Cloud · Payments · Security</p>
           <div class="hero-ctas">
-            <a href="#portfolio" class="btn primary">View My Work</a>
-            <a href="#contact" class="btn outline">Start a Project</a>
-            <a href="cv.html" target="_blank" rel="noopener" class="btn text">Download CV →</a>
+            <a href="#contact" class="btn primary">Start Your Project →</a>
+            <a href="#portfolio" class="btn outline">Explore My Work</a>
+            <a href="#contact" class="btn outline">Hire Me →</a>
           </div>
           <div class="hero-stats">
             <div class="hero-stat"><strong>10+</strong><span>Systems Shipped</span></div>
@@ -599,8 +668,9 @@
         <span class="section-label reveal">Skills</span>
         <h2 class="reveal">Technical &amp; Professional Expertise</h2>
         <p class="subtitle reveal">The tools and disciplines I use to build stable, maintainable, and secure systems.</p>
-        <div class="skills-grid">
-          <div class="skills-col reveal-left">
+        <div class="skills-carousel reveal" role="region" aria-label="Skills carousel">
+          <div class="skills-stage">
+          <article class="skills-col">
             <h3>Engineering</h3>
             <ul class="skills-list">
               <li>Web Development (HTML / CSS / JS)</li>
@@ -614,8 +684,8 @@
               <li>Automation &amp; workflow tooling</li>
               <li>AI integration (chat, smart features)</li>
             </ul>
-          </div>
-          <div class="skills-col reveal-right">
+          </article>
+          <article class="skills-col">
             <h3>Delivery &amp; Operations</h3>
             <ul class="skills-list">
               <li>Technical documentation &amp; SOPs</li>
@@ -628,6 +698,12 @@
               <li>Troubleshooting &amp; technical support</li>
               <li>Research &amp; requirements gathering</li>
             </ul>
+          </article>
+          </div>
+          <div class="skills-carousel-controls">
+            <button class="carousel-control" type="button" data-skill-previous aria-label="Previous skills card">←</button>
+            <span class="skills-carousel-status" data-skill-status aria-live="polite"></span>
+            <button class="carousel-control" type="button" data-skill-next aria-label="Next skills card">→</button>
           </div>
         </div>
       </div>
@@ -638,36 +714,43 @@
       <span class="section-label reveal">Services</span>
       <h2 class="reveal">What I Build For You</h2>
       <p class="subtitle reveal">From idea to launch — end-to-end digital services for founders and growing businesses.</p>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-index">01 / WEB &amp; APP</div>
-          <h3>Web &amp; App Development</h3>
-          <p>Custom responsive web and mobile applications, dashboards, and client portals focused on usability, performance, and security.</p>
+      <div class="services-carousel" role="region" aria-label="Services carousel">
+        <div class="services-stage">
+          <article class="service-card">
+            <div class="service-index">01 / WEB &amp; APP</div>
+            <h3>Web &amp; App Development</h3>
+            <p>Custom responsive web and mobile applications, dashboards, and client portals focused on usability, performance, and security.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-index">02 / PAYMENTS</div>
+            <h3>Payments &amp; Booking Systems</h3>
+            <p>Secure, real-time booking and payment platforms — M-Pesa, card, and international gateways — built for service businesses.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-index">03 / RECORDS</div>
+            <h3>Records &amp; Data Systems</h3>
+            <p>Secure, searchable records and business-management systems with sensible, compliance-minded data practices.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-index">04 / STRATEGY</div>
+            <h3>Digital Strategy &amp; Branding</h3>
+            <p>Digital roadmaps, branding, and positioning that increase reach, credibility, and conversion for your business.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-index">05 / SECURITY</div>
+            <h3>Security Audits &amp; QA</h3>
+            <p>Vulnerability reviews, access-control hardening, and performance optimisation — before issues become incidents.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-index">06 / CLOUD</div>
+            <h3>Cloud &amp; Automation</h3>
+            <p>Cloud deployment, SaaS integration, and workflow automation to modernise operations and save time.</p>
+          </article>
         </div>
-        <div class="service-card reveal">
-          <div class="service-index">02 / PAYMENTS</div>
-          <h3>Payments &amp; Booking Systems</h3>
-          <p>Secure, real-time booking and payment platforms — M-Pesa, card, and international gateways — built for service businesses.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-index">03 / RECORDS</div>
-          <h3>Records &amp; Data Systems</h3>
-          <p>Secure, searchable records and business-management systems with sensible, compliance-minded data practices.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-index">04 / STRATEGY</div>
-          <h3>Digital Strategy &amp; Branding</h3>
-          <p>Digital roadmaps, branding, and positioning that increase reach, credibility, and conversion for your business.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-index">05 / SECURITY</div>
-          <h3>Security Audits &amp; QA</h3>
-          <p>Vulnerability reviews, access-control hardening, and performance optimisation — before issues become incidents.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-index">06 / CLOUD</div>
-          <h3>Cloud &amp; Automation</h3>
-          <p>Cloud deployment, SaaS integration, and workflow automation to modernise operations and save time.</p>
+        <div class="services-carousel-controls">
+          <button class="carousel-control" type="button" data-service-previous aria-label="Previous service">←</button>
+          <span class="carousel-status" data-service-status aria-live="polite"></span>
+          <button class="carousel-control" type="button" data-service-next aria-label="Next service">→</button>
         </div>
       </div>
     </section>
@@ -676,82 +759,90 @@
     <section id="portfolio" class="section alt-bg">
       <div class="container">
         <span class="section-label reveal">Selected Work</span>
-        <h2 class="reveal">Products &amp; Platforms I've Built</h2>
-        <p class="subtitle reveal">A showcase of digital products, platforms, and systems built for business and impact.</p>
+        <h2 class="reveal">Products, Brands &amp; Platforms</h2>
+        <p class="subtitle reveal">A selection of businesses and digital products I've helped build and design.</p>
         <div class="projects-grid">
-
-          <!-- Featured: DigiWebs -->
-          <div class="project project-featured reveal">
-            <div class="project-img-wrap">
-              <img src="images/digiwebs.png" alt="DigiWebs">
-              <div class="project-tech-badge">HTML · CSS · JS · PHP</div>
+          <article class="project reveal">
+            <div class="project-img-wrap project-logo-wrap">
+              <img src="images/savannah.png" alt="Savannah Systems logo">
             </div>
             <div class="project-body">
-              <div class="project-tags"><span class="tag">Web Platform</span><span class="tag">SME</span></div>
-              <h3>DigiWebs — Business Website &amp; Digital Hub</h3>
-              <p>A modern business website and digital-solutions platform for SMEs and growing organisations. Includes resources, support, and a client portal to help businesses grow and manage their digital presence.</p>
-              <a class="btn outline small" href="https://digi-webs.rf.gd/" target="_blank" rel="noopener">Live Site ↗</a>
+              <div class="project-tags"><span class="tag">Logistics Software</span><span class="tag">UI/UX</span><span class="tag">United Kingdom</span></div>
+              <h3>Savannah Systems</h3>
+              <p>Logistics software company where I contribute UI/UX design and currently work as a Junior Software Developer.</p>
+              <a class="btn outline small" href="https://savannahsystems.uk" target="_blank" rel="noopener">Visit Site ↗</a>
             </div>
-          </div>
+          </article>
 
-          <!-- GradrTech -->
-          <div class="project reveal">
-            <div class="project-img-wrap">
-              <div class="project-logo-tile">
-                <img src="https://media.base44.com/images/public/6a1fc1671f4ad82421ccf56e/29bd2e54d_generated_image.png" alt="GradrTech logo">
-              </div>
-              <div class="project-tech-badge">React · Node · Cloud</div>
+          <article class="project reveal">
+            <div class="project-img-wrap project-logo-wrap">
+              <img src="images/fav.png" alt="DigiWebs logo">
             </div>
             <div class="project-body">
-              <div class="project-tags"><span class="tag">Software Development</span><span class="tag">UK</span></div>
+              <div class="project-tags"><span class="tag">Digital Solutions</span><span class="tag">Personal Brand</span></div>
+              <h3>DigiWebs</h3>
+              <p>My personal brand and digital solutions company, helping businesses build their online presence and find practical digital solutions.</p>
+              <a class="btn outline small" href="https://digi-webs.rf.gd" target="_blank" rel="noopener">Visit Site ↗</a>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-img-wrap project-logo-wrap">
+              <img src="images/gradrtech.png" alt="GradrTech logo">
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Software Company</span><span class="tag">London, UK</span></div>
               <h3>GradrTech</h3>
-              <p>A UK-based software development company building web apps, mobile apps, and cloud solutions for startups and growing businesses.</p>
+              <p>Website for a London-based software company building digital products and technology solutions.</p>
               <a class="btn outline small" href="https://gradrtech.co.uk" target="_blank" rel="noopener">Visit Site ↗</a>
             </div>
-          </div>
+          </article>
 
-          <!-- Algorithm Forge -->
-          <div class="project reveal">
-            <div class="project-img-wrap">
-              <img src="images/algorithmforge.png" alt="Algorithm Forge">
-              <div class="project-tech-badge">React · Node · AI</div>
+          <article class="project reveal">
+            <div class="project-img-wrap project-logo-wrap">
+              <img src="images/elea.png" alt="Elea Cleaning Services logo">
             </div>
             <div class="project-body">
-              <div class="project-tags"><span class="tag">Developer Tool</span><span class="tag">Marketplace</span></div>
-              <h3>Algorithm Forge</h3>
-              <p>Generate algorithms, collaborate with peers, and monetise creations in a marketplace built for the developer community.</p>
-              <a class="btn outline small" href="https://algorithmforge.base44.app/" target="_blank" rel="noopener">Live App ↗</a>
+              <div class="project-tags"><span class="tag">Home Cleaning</span><span class="tag">Berlin, Germany</span></div>
+              <h3>Elea Cleaning Services</h3>
+              <p>Website for a Berlin home-cleaning company, presenting its cleaning services to local customers.</p>
+              <a class="btn outline small" href="https://eleacleaning.de" target="_blank" rel="noopener">Visit Site ↗</a>
             </div>
-          </div>
+          </article>
 
-          <!-- Digi-Learning -->
-          <div class="project reveal">
-            <div class="project-img-wrap">
-              <img src="images/digi-learning.png" alt="Digi-Learning">
-              <div class="project-tech-badge">EdTech · PWA</div>
+          <article class="project reveal">
+            <div class="project-img-wrap project-logo-wrap">
+              <img src="images/cheqbuy.png" alt="CheQBuy logo">
             </div>
             <div class="project-body">
-              <div class="project-tags"><span class="tag">EdTech</span><span class="tag">Certificates</span></div>
-              <h3>Digi-Learning</h3>
-              <p>A free learning platform offering interactive computer-skills lessons and certificates — built to widen access to digital literacy.</p>
-              <a class="btn outline small" href="https://digi-learning.base44.app/" target="_blank" rel="noopener">Live App ↗</a>
+              <div class="project-tags"><span class="tag">Logistics</span><span class="tag">Mobile App</span></div>
+              <h3>CheQBuy</h3>
+              <p>Logistics company website created to introduce the business and showcase its mobile app.</p>
+              <a class="btn outline small" href="https://cheqbuy.com" target="_blank" rel="noopener">Visit Site ↗</a>
             </div>
-          </div>
+          </article>
 
-          <!-- DigiCreate -->
-          <div class="project reveal">
-            <div class="project-img-wrap">
-              <img src="images/digicreate.png" alt="DigiCreate">
-              <div class="project-tech-badge">AI · Image Gen</div>
+          <article class="project reveal">
+            <div class="project-img-wrap project-image-pair">
+              <img src="images/gate71.png" alt="Gate7 logo design">
+              <img src="images/productgate7.png" alt="Gate7 product design concept">
             </div>
             <div class="project-body">
-              <div class="project-tags"><span class="tag">AI Tools</span><span class="tag">Creative</span></div>
-              <h3>DigiCreate — AI Creative Suite</h3>
-              <p>Generate images, edit photos, and create music with AI-powered tools built for creators and professionals.</p>
-              <a class="btn outline small" href="https://digi-create.base44.app/" target="_blank" rel="noopener">Live App ↗</a>
+              <div class="project-tags"><span class="tag">United Kingdom</span><span class="tag">Branding</span><span class="tag">Product Design</span></div>
+              <h3>Gate7</h3>
+              <p>Logo and product design for a UK company.</p>
             </div>
-          </div>
+          </article>
 
+          <article class="project reveal">
+            <div class="project-img-wrap project-placeholder" aria-hidden="true">DennisMenez</div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Logistics</span><span class="tag">Mobile App</span></div>
+              <h3>DennisMenez</h3>
+              <p>Mobile app built for a logistics firm and published on the Google Play Store. Store link coming soon.</p>
+              <span class="btn outline small" aria-label="DennisMenez Play Store link coming soon">Play Store link coming soon</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -959,6 +1050,93 @@
       a.addEventListener('click', () => { nav.classList.remove('open'); hamburger.classList.remove('open'); });
     });
 
+    const servicesCarousel = document.querySelector('.services-carousel');
+    if (servicesCarousel) {
+      const serviceCards = Array.from(servicesCarousel.querySelectorAll('.service-card'));
+      const serviceStatus = servicesCarousel.querySelector('[data-service-status]');
+      let activeService = 0;
+
+      const updateServicesCarousel = () => {
+        const distance = Math.min(300, Math.max(150, servicesCarousel.clientWidth * 0.28));
+        serviceCards.forEach((card, index) => {
+          let offset = (index - activeService + serviceCards.length) % serviceCards.length;
+          if (offset > serviceCards.length / 2) offset -= serviceCards.length;
+          const visible = Math.abs(offset) <= 1;
+
+          card.style.setProperty('--x', `${offset * distance}px`);
+          card.style.setProperty('--z', `${offset === 0 ? 35 : -25}px`);
+          card.style.setProperty('--rotation', `${offset * -28}deg`);
+          card.style.setProperty('--scale', offset === 0 ? '1' : '0.86');
+          card.style.setProperty('--opacity', visible ? (offset === 0 ? '1' : '0.7') : '0');
+          card.style.setProperty('--layer', String(2 - Math.abs(offset)));
+          card.style.visibility = visible ? 'visible' : 'hidden';
+          card.setAttribute('aria-hidden', String(!visible));
+          if (offset === 0) {
+            card.setAttribute('aria-current', 'true');
+          } else {
+            card.removeAttribute('aria-current');
+          }
+        });
+
+        const activeTitle = serviceCards[activeService].querySelector('h3').textContent;
+        serviceStatus.textContent = `${activeService + 1} / ${serviceCards.length}: ${activeTitle}`;
+      };
+
+      const moveService = direction => {
+        activeService = (activeService + direction + serviceCards.length) % serviceCards.length;
+        updateServicesCarousel();
+      };
+
+      servicesCarousel.querySelector('[data-service-previous]').addEventListener('click', () => moveService(-1));
+      servicesCarousel.querySelector('[data-service-next]').addEventListener('click', () => moveService(1));
+      updateServicesCarousel();
+      window.addEventListener('resize', updateServicesCarousel);
+    }
+
+    const skillsCarousel = document.querySelector('.skills-carousel');
+    if (skillsCarousel) {
+      const skillsCards = Array.from(skillsCarousel.querySelectorAll('.skills-col'));
+      const skillsStatus = skillsCarousel.querySelector('[data-skill-status]');
+      let activeSkills = 0;
+
+      const updateSkillsCarousel = () => {
+        const skillsStage = skillsCarousel.querySelector('.skills-stage');
+        const cardHeight = Math.max(...skillsCards.map(card => card.scrollHeight));
+        skillsStage.style.height = `${cardHeight + 48}px`;
+        const distance = Math.min(460, Math.max(150, skillsCarousel.clientWidth * 0.38));
+        skillsCards.forEach((card, index) => {
+          const isActive = index === activeSkills;
+          const offset = isActive ? 0 : (activeSkills === 0 ? 1 : -1);
+
+          card.style.setProperty('--x', `${offset * distance}px`);
+          card.style.setProperty('--z', `${isActive ? 35 : -35}px`);
+          card.style.setProperty('--rotation', `${offset * -28}deg`);
+          card.style.setProperty('--scale', isActive ? '1' : '0.86');
+          card.style.setProperty('--opacity', isActive ? '1' : '0.68');
+          card.style.setProperty('--layer', isActive ? '2' : '1');
+          card.setAttribute('aria-hidden', String(!isActive));
+          if (isActive) {
+            card.setAttribute('aria-current', 'true');
+          } else {
+            card.removeAttribute('aria-current');
+          }
+        });
+
+        const activeTitle = skillsCards[activeSkills].querySelector('h3').textContent;
+        skillsStatus.textContent = `${activeSkills + 1} / ${skillsCards.length}: ${activeTitle}`;
+      };
+
+      const moveSkills = direction => {
+        activeSkills = (activeSkills + direction + skillsCards.length) % skillsCards.length;
+        updateSkillsCarousel();
+      };
+
+      skillsCarousel.querySelector('[data-skill-previous]').addEventListener('click', () => moveSkills(-1));
+      skillsCarousel.querySelector('[data-skill-next]').addEventListener('click', () => moveSkills(1));
+      updateSkillsCarousel();
+      window.addEventListener('resize', updateSkillsCarousel);
+    }
+
     const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -970,7 +1148,7 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    document.querySelectorAll('.services-grid, .projects-grid, .whyme-grid, .values-grid, .process-grid').forEach(grid => {
+    document.querySelectorAll('.projects-grid, .whyme-grid, .values-grid, .process-grid').forEach(grid => {
       grid.querySelectorAll('.reveal').forEach((card, i) => {
         card.style.transitionDelay = (i * 0.07) + 's';
       });
